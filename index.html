@@ -18,13 +18,14 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #111;
+            background-color: #000;
             margin: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow: hidden;
+            color: white;
         }
 
         h1, h2, .heading {
@@ -38,9 +39,10 @@
             height: 640px; 
             background: var(--bg-dark);
             position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 100px rgba(0,0,0,0.8);
             overflow: hidden;
-            border-radius: 12px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .slide {
@@ -103,41 +105,68 @@
         }
         .animate-pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        /* Controls */
-        .controls {
+        /* Floating Controls */
+        .nav-btn {
             position: fixed;
-            bottom: 20px;
-            display: flex;
-            gap: 12px;
-            z-index: 100;
-        }
-        .btn {
-            background: rgba(255,255,255,0.1);
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
-            padding: 12px 20px;
-            border-radius: 12px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: 0.2s;
+            z-index: 1000;
+            transition: 0.3s;
+            font-size: 20px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-btn.left { left: 30px; }
+        .nav-btn.right { right: 30px; }
+
+        .pdf-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--accent-blue);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 14px;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
         }
-        .btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-        .btn-primary { background: var(--accent-blue); border-color: transparent; }
+
+        .pdf-btn:hover {
+            transform: translateY(2px);
+            opacity: 0.9;
+        }
 
         /* PDF Printing Fixes */
         @media print {
             @page {
-                size: 1080px 1920px; /* Force 9:16 Mobile dimensions */
+                size: 1080px 1920px;
                 margin: 0;
             }
-            body { 
-                background: white !important; 
-                overflow: visible !important; 
-                display: block !important; 
-            }
-            .controls { display: none !important; }
+            body { background: white !important; overflow: visible !important; display: block !important; }
+            .nav-btn, .pdf-btn { display: none !important; }
             .slide-container { 
                 box-shadow: none !important; 
                 width: 100% !important; 
@@ -145,6 +174,7 @@
                 overflow: visible !important; 
                 display: block !important;
                 border-radius: 0 !important;
+                border: none !important;
             }
             .slide {
                 position: relative !important;
@@ -157,18 +187,25 @@
                 background: #1A1A1B !important;
                 -webkit-print-color-adjust: exact !important;
                 color-adjust: exact !important;
-                padding: 100px 60px !important; /* Scale padding for high res */
+                padding: 100px 60px !important;
             }
-            /* Scale elements up for higher print resolution */
             .text-3xl { font-size: 80px !important; }
             .text-4xl { font-size: 100px !important; }
             .text-xl { font-size: 40px !important; }
             .text-6xl { font-size: 120px !important; }
-            .dimension-box { transform: scale(2.5); margin: 200px auto !important; }
+            .dimension-box { transform: scale(2.5); margin: 250px auto !important; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Global Floating Controls -->
+    <button class="pdf-btn" id="pdfBtn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Save PDF
+    </button>
+    <button class="nav-btn left" onclick="prevSlide()">❮</button>
+    <button class="nav-btn right" onclick="nextSlide()">❯</button>
 
     <div class="slide-container" id="presentation">
         
@@ -289,13 +326,6 @@
 
     </div>
 
-    <!-- Interface Controls -->
-    <div class="controls">
-        <button class="btn" onclick="prevSlide()">Back</button>
-        <button class="btn btn-primary" onclick="nextSlide()">Next</button>
-        <button class="btn" id="pdfBtn">Save PDF</button>
-    </div>
-
     <script>
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
@@ -330,15 +360,11 @@
             if (e.key === 'ArrowLeft') prevSlide();
         });
 
-        // Fixed PDF Trigger
         document.getElementById('pdfBtn').addEventListener('click', function() {
-            // Give a tiny timeout to ensure UI state is stable
-            setTimeout(() => {
-                window.print();
-            }, 100);
+            window.print();
         });
 
-        // Swipe support
+        // Swipe logic
         let touchstartX = 0;
         let touchendX = 0;
         document.getElementById('presentation').addEventListener('touchstart', e => {
