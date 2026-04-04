@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bedroom Planning Guide - Civilian Himmu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-yellow: #FFD700;
+            --danger-red: #FF4D4D;
+            --success-green: #2ECC71;
+            --bg-dark: #1A1A1B;
+            --accent-blue: #3498DB;
+            --premium-gold: #D4AF37;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        h1, h2, .heading {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* 9:16 Aspect Ratio Container */
+        .slide-container {
+            width: 360px; 
+            height: 640px; 
+            background: var(--bg-dark);
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 24px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+            z-index: 1;
+            background: var(--bg-dark);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+            z-index: 10;
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .bg-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4) blur(2px);
+        }
+
+        .dimension-box {
+            border: 2px dashed #555;
+            position: relative;
+            margin: 20px auto;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        .animate-shake { animation: shake 0.3s ease-in-out infinite; }
+
+        @keyframes pop {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        .animate-pop { animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+
+        /* Controls */
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            display: flex;
+            gap: 12px;
+            z-index: 100;
+        }
+        .btn {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: 0.2s;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+        .btn-primary { background: var(--accent-blue); border-color: transparent; }
+
+        /* PDF Printing Fixes */
+        @media print {
+            @page {
+                size: 1080px 1920px; /* Force 9:16 Mobile dimensions */
+                margin: 0;
+            }
+            body { 
+                background: white !important; 
+                overflow: visible !important; 
+                display: block !important; 
+            }
+            .controls { display: none !important; }
+            .slide-container { 
+                box-shadow: none !important; 
+                width: 100% !important; 
+                height: auto !important; 
+                overflow: visible !important; 
+                display: block !important;
+                border-radius: 0 !important;
+            }
+            .slide {
+                position: relative !important;
+                display: flex !important;
+                opacity: 1 !important;
+                transform: none !important;
+                page-break-after: always !important;
+                width: 1080px !important;
+                height: 1920px !important;
+                background: #1A1A1B !important;
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                padding: 100px 60px !important; /* Scale padding for high res */
+            }
+            /* Scale elements up for higher print resolution */
+            .text-3xl { font-size: 80px !important; }
+            .text-4xl { font-size: 100px !important; }
+            .text-xl { font-size: 40px !important; }
+            .text-6xl { font-size: 120px !important; }
+            .dimension-box { transform: scale(2.5); margin: 200px auto !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="slide-container" id="presentation">
+        
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <div class="bg-overlay" style="background-image: url('https://images.unsplash.com/photo-1540518614846-7eded433c457?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="absolute inset-0 bg-red-900/30"></div>
+            <div class="mt-auto mb-20 text-center">
+                <h2 class="text-3xl font-bold text-white mb-6">Bedroom <span class="bg-red-600 px-2">8x8</span> bana diya? 😬</h2>
+                <p class="text-xl text-white">Ye galti pura <span class="text-yellow-400 font-bold">house plan</span> kharab kar sakti hai!</p>
+                <div class="mt-12 text-6xl">❌</div>
+            </div>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <div class="text-center">
+                <p class="text-gray-400 tracking-widest uppercase text-sm">Minimum Bedroom Size</p>
+                <h2 class="text-4xl font-bold text-white mt-4">10x10 <span class="text-green-500">Feet</span></h2>
+            </div>
+            <div class="dimension-box w-64 h-64 mt-16 border-green-500 bg-green-500/10">
+                <div class="w-32 h-40 bg-white/20 rounded shadow-inner flex items-center justify-center text-xs text-white">BED</div>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 text-green-500 font-bold">10'</div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 text-green-500 font-bold">10'</div>
+            </div>
+            <p class="mt-auto text-center text-gray-300 italic text-lg">Comfortable movement + proper bed space</p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <div class="text-center">
+                <p class="text-gray-400 tracking-widest uppercase text-sm">Better Size</p>
+                <h2 class="text-4xl font-bold text-white mt-4">10x12 <span class="text-blue-500">Feet</span></h2>
+            </div>
+            <div class="dimension-box w-64 h-72 mt-16 border-blue-500 bg-blue-500/10">
+                <div class="flex flex-col gap-4 items-center">
+                    <div class="w-32 h-40 bg-white/20 rounded flex items-center justify-center text-xs text-white">BED</div>
+                    <div class="w-48 h-8 bg-white/10 rounded flex items-center justify-center text-[10px] text-white">WARDROBE</div>
+                </div>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 text-blue-500 font-bold">10'</div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 text-blue-500 font-bold">12'</div>
+            </div>
+            <p class="mt-auto text-center text-gray-300 italic text-lg">Extra space for wardrobe + walking</p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <div class="text-center">
+                <p class="text-gray-400 tracking-widest uppercase text-sm">Master Bedroom Ideal Size</p>
+                <h2 class="text-4xl font-bold text-white mt-4">12x14 <span class="text-yellow-500">Feet</span></h2>
+            </div>
+            <div class="dimension-box w-64 h-72 mt-16 border-yellow-500 bg-yellow-500/10">
+                <div class="flex flex-col gap-4 items-center">
+                    <div class="flex gap-2">
+                        <div class="w-4 h-4 bg-white/20 rounded-full"></div>
+                        <div class="w-32 h-40 bg-white/30 rounded flex items-center justify-center text-xs text-white">KING BED</div>
+                        <div class="w-4 h-4 bg-white/20 rounded-full"></div>
+                    </div>
+                </div>
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8 text-yellow-500 font-bold">12'</div>
+                <div class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-10 text-yellow-500 font-bold">14'</div>
+            </div>
+            <p class="mt-auto text-center text-yellow-500/80 font-semibold text-lg">Premium comfort + spacious feel 👑</p>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="slide">
+            <h2 class="text-3xl font-bold text-red-500 text-center">8x8 Bedroom Problems</h2>
+            <div class="dimension-box w-48 h-48 mt-16 border-red-600 bg-red-900/20 animate-shake">
+                <div class="w-40 h-40 bg-red-500/40 rounded flex items-center justify-center text-xs text-white font-bold">CONGESTED</div>
+                <div class="absolute inset-0 flex items-center justify-center text-6xl opacity-20">❌</div>
+            </div>
+            <ul class="mt-16 space-y-8 px-6 text-xl">
+                <li class="flex items-center text-white gap-4"><span class="text-red-500">✖</span> No walking space</li>
+                <li class="flex items-center text-white gap-4"><span class="text-red-500">✖</span> No wardrobe space</li>
+                <li class="flex items-center text-white gap-4"><span class="text-red-500">✖</span> Congested feel</li>
+            </ul>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="slide">
+            <h2 class="text-2xl font-bold text-white text-center mb-12">Bedroom Size Comparison</h2>
+            <div class="flex flex-col gap-6 px-4">
+                <div class="flex items-center justify-between p-6 bg-red-900/20 rounded-xl border border-red-900 animate-pop">
+                    <span class="text-2xl font-bold text-white">8x8</span>
+                    <span class="text-3xl">❌</span>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-green-900/20 rounded-xl border border-green-900 animate-pop" style="animation-delay: 0.1s">
+                    <span class="text-2xl font-bold text-white">10x10</span>
+                    <span class="text-3xl">✅</span>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-blue-900/20 rounded-xl border border-blue-900 animate-pop" style="animation-delay: 0.2s">
+                    <span class="text-2xl font-bold text-white">10x12</span>
+                    <span class="text-3xl">⭐</span>
+                </div>
+                <div class="flex items-center justify-between p-6 bg-yellow-900/20 rounded-xl border border-yellow-900 animate-pop" style="animation-delay: 0.3s">
+                    <span class="text-2xl font-bold text-white">12x14</span>
+                    <span class="text-3xl">👑</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7 -->
+        <div class="slide">
+            <div class="bg-overlay" style="background-image: url('https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800');"></div>
+            <div class="mt-24 text-center px-6">
+                <h2 class="text-2xl text-white font-bold leading-tight">Bedroom sirf sone ke liye nahi</h2>
+                <p class="text-3xl text-yellow-400 font-bold mt-4 italic">Comfort ke liye hota hai</p>
+            </div>
+            
+            <div class="mt-auto mb-16 text-center">
+                <p class="text-white/80 mb-6 text-lg">Follow for practical house planning tips</p>
+                <div class="bg-white/10 backdrop-blur-md py-4 px-8 rounded-full inline-block border border-white/20">
+                    <p class="text-white font-bold tracking-widest uppercase text-xl">Civilian Himmu</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Interface Controls -->
+    <div class="controls">
+        <button class="btn" onclick="prevSlide()">Back</button>
+        <button class="btn btn-primary" onclick="nextSlide()">Next</button>
+        <button class="btn" id="pdfBtn">Save PDF</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active', 'prev');
+                if (i === index) {
+                    slide.classList.add('active');
+                } else if (i < index) {
+                    slide.classList.add('prev');
+                }
+            });
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                showSlide(currentSlide);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                showSlide(currentSlide);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        // Fixed PDF Trigger
+        document.getElementById('pdfBtn').addEventListener('click', function() {
+            // Give a tiny timeout to ensure UI state is stable
+            setTimeout(() => {
+                window.print();
+            }, 100);
+        });
+
+        // Swipe support
+        let touchstartX = 0;
+        let touchendX = 0;
+        document.getElementById('presentation').addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
+        });
+        document.getElementById('presentation').addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            if (touchendX < touchstartX - 50) nextSlide();
+            if (touchendX > touchstartX + 50) prevSlide();
+        });
+    </script>
+</body>
+</html>
