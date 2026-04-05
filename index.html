@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>30x40 House Plan Biggest Mistake - Civilian Himmu</title>
+    <title>Staircase Placement - Civilian Himmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -21,18 +21,17 @@
             color: white;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Prevent scrolling, use slides */
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        /* 9:16 Aspect Ratio Container */
         .shorts-container {
             width: 100vw;
             height: 100vh;
-            max-width: 56.25vh; /* Maintain 9:16 */
+            max-width: 56.25vh;
             background-color: var(--bg-dark);
             position: relative;
             box-shadow: 0 0 50px rgba(0,0,0,0.5);
@@ -48,14 +47,14 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.5s ease-in-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: scale(1.1);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateX(50px);
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
-            transform: scale(1);
+            transform: translateX(0);
         }
 
         h1, h2 {
@@ -102,25 +101,29 @@
             to { width: 100%; }
         }
 
-        /* Architectural Elements */
-        .plan-box {
-            background: #2a2a2a;
-            border: 2px dashed #444;
-            border-radius: 12px;
-            position: relative;
-            margin: 1.5rem 0;
+        /* Staircase Elements */
+        .staircase-icon {
+            display: flex;
+            flex-direction: column;
+            width: 60px;
+            gap: 4px;
+        }
+        .step {
+            height: 8px;
+            background: currentColor;
+            border-radius: 2px;
         }
 
-        .mistake-overlay {
-            background: rgba(239, 68, 68, 0.2);
-            border: 2px solid var(--red-mistake);
-            animation: pulse 1.5s infinite;
+        /* Navigation Taps */
+        .nav-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            z-index: 50;
         }
-
-        @keyframes pulse {
-            0% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.4; }
+        .nav-left, .nav-right {
+            flex: 1;
+            cursor: pointer;
         }
 
         .cta-button {
@@ -136,29 +139,14 @@
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
             40% {transform: translateY(-10px);}
-            60% {transform: translateY(-5px);}
-        }
-
-        /* Navigation Buttons */
-        .nav-overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            z-index: 50;
-        }
-        .nav-left, .nav-right {
-            flex: 1;
-            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
     <div class="shorts-container" id="app">
-        <!-- Progress Bars -->
         <div class="progress-container" id="progress-dots"></div>
 
-        <!-- Navigation Taps -->
         <div class="nav-overlay">
             <div class="nav-left" onclick="prevSlide()"></div>
             <div class="nav-right" onclick="nextSlide()"></div>
@@ -166,115 +154,144 @@
 
         <!-- Slide 1: Hook -->
         <div class="slide active" id="slide-0">
-            <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/graphy.png');"></div>
-            <h1 class="text-5xl font-black mb-4">30x40 <br><span class="highlight-yellow">House Plan</span> ki</h1>
-            <h2 class="text-4xl font-black bg-red-600 px-2 py-1 inline-block">SABSE BADI GALTI 😳</h2>
-            <p class="mt-6 text-xl text-gray-300">Log space waste kar dete hain...</p>
-            <div class="mt-auto mb-10 text-center animate-pulse">
-                <span class="text-sm tracking-widest text-gray-400">TAP TO START →</span>
+            <div class="absolute inset-0 opacity-10" style="background-image: url('https://www.transparenttextures.com/patterns/blueprint.png');"></div>
+            <h1 class="text-4xl font-black mb-2">Staircase <br><span class="highlight-red">Wrong Placement</span></h1>
+            <h2 class="text-5xl font-black text-white">= SPACE WASTE 😳</h2>
+            <p class="mt-6 text-xl text-gray-400">Ye galti poora plan kharab kar deti hai!</p>
+            <div class="mt-12 flex justify-center">
+                <div class="text-red-500 animate-pulse">
+                    <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                </div>
             </div>
         </div>
 
-        <!-- Slide 2: Mistake Reveal -->
+        <!-- Slide 2: Wrong Placement -->
         <div class="slide" id="slide-1">
-            <h2 class="text-3xl font-bold mb-8">BIGGEST MISTAKE</h2>
-            <div class="plan-box h-64 flex items-center justify-center">
-                <div class="grid grid-cols-3 grid-rows-3 gap-2 w-4/5 h-4/5">
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="mistake-overlay rounded flex items-center justify-center font-bold text-red-500">LOBBY</div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
-                    <div class="bg-gray-600 rounded"></div>
+            <h2 class="text-2xl font-bold mb-6 highlight-red">WRONG PLACEMENT</h2>
+            <div class="relative bg-gray-800 h-64 rounded-xl border-2 border-gray-700 flex items-center justify-center">
+                <!-- Center Staircase Layout -->
+                <div class="grid grid-cols-3 grid-rows-3 gap-2 w-4/5 h-4/5 text-[10px] text-center font-bold">
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-red-600/40 border-2 border-red-500 rounded flex flex-col items-center justify-center text-red-200">
+                        <div class="staircase-icon mb-1">
+                            <div class="step w-8"></div><div class="step w-8"></div><div class="step w-8"></div>
+                        </div>
+                        STAIRS
+                    </div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-700 rounded flex items-center justify-center">ROOM</div>
                 </div>
-                <div class="absolute top-0 right-0 p-2 bg-red-600 text-xs font-bold">⚠️ WASTE SPACE</div>
+                <div class="absolute -bottom-4 bg-red-600 px-4 py-1 rounded-full text-xs font-bold">CENTER STAIRCASE ❌</div>
             </div>
-            <h3 class="text-4xl font-black highlight-red italic">BADA USELESS LOBBY</h3>
+            <p class="mt-8 text-center text-gray-300 italic">"Pura circulation space block ho jata hai"</p>
         </div>
 
-        <!-- Slide 3: Problem Explanation -->
+        <!-- Slide 3: Problem -->
         <div class="slide" id="slide-2">
-            <h2 class="text-3xl font-bold mb-6">ISSE KYA HOTA HAI?</h2>
-            <div class="space-y-6">
-                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
-                    <span class="text-2xl text-red-500">❌</span>
-                    <p class="text-lg">Rooms chhote ho jate hain</p>
+            <h2 class="text-3xl font-bold mb-8">PROBLEMS KYA HAIN?</h2>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-xl border border-red-900/50">
+                    <div class="bg-red-600 p-2 rounded-lg">📏</div>
+                    <p class="font-medium">Rooms chhote ho jate hain</p>
                 </div>
-                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
-                    <span class="text-2xl text-red-500">❌</span>
-                    <p class="text-lg">Hall ka space cut jata hai</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-xl border border-red-900/50">
+                    <div class="bg-red-600 p-2 rounded-lg">👣</div>
+                    <p class="font-medium">Jada rasta (Corridor) lagta hai</p>
                 </div>
-                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
-                    <span class="text-2xl text-red-500">❌</span>
-                    <p class="text-lg">Planning weak lagti hai</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-xl border border-red-900/50">
+                    <div class="bg-red-600 p-2 rounded-lg">🏚️</div>
+                    <p class="font-medium">Planning inefficient lagti hai</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Why 30x40 Important -->
+        <!-- Slide 4: Smart Placement -->
         <div class="slide" id="slide-3">
-            <div class="border-2 border-yellow-500 p-6 rounded-2xl">
-                <h2 class="text-3xl font-bold mb-2">30' x 40' PLOT</h2>
-                <p class="text-yellow-500 font-bold mb-6">HAR FOOT IMPORTANT HAI</p>
-                <div class="relative h-48 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
-                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-500 text-black px-3 py-1 text-xs font-bold rounded">30 FT</div>
-                    <div class="absolute top-1/2 -right-10 -translate-y-1/2 rotate-90 bg-yellow-500 text-black px-3 py-1 text-xs font-bold rounded">40 FT</div>
-                    <p class="text-center text-gray-400 text-sm px-4">Compact planning se hi 3 BHK set hoga!</p>
+            <h2 class="text-2xl font-bold mb-6 highlight-green">SMART PLACEMENT</h2>
+            <div class="relative bg-gray-800 h-64 rounded-xl border-2 border-gray-700 flex items-center justify-center">
+                <!-- Corner Staircase Layout -->
+                <div class="grid grid-cols-3 grid-rows-3 gap-2 w-4/5 h-4/5 text-[10px] text-center font-bold">
+                    <div class="bg-green-600/40 border-2 border-green-500 rounded flex flex-col items-center justify-center text-green-200">
+                        <div class="staircase-icon mb-1">
+                            <div class="step w-8"></div><div class="step w-8"></div><div class="step w-8"></div>
+                        </div>
+                        STAIRS
+                    </div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center col-span-2">BIG HALL</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
+                    <div class="bg-gray-600 rounded flex items-center justify-center">ROOM</div>
                 </div>
+                <div class="absolute -bottom-4 bg-green-600 px-4 py-1 rounded-full text-xs font-bold">CORNER STAIRS ✅</div>
             </div>
+            <p class="mt-8 text-center text-green-400 font-bold uppercase tracking-widest">Maximum Usable Space!</p>
         </div>
 
         <!-- Slide 5: Wrong vs Right -->
         <div class="slide" id="slide-4">
-            <h2 class="text-2xl font-bold mb-4 text-center">WRONG VS SMART</h2>
-            <div class="flex h-full gap-2">
-                <div class="flex-1 bg-red-950/30 border border-red-900 rounded-xl p-2 flex flex-col items-center">
-                    <span class="text-2xl mb-2">❌</span>
-                    <p class="text-[10px] text-center mb-4">BIG LOBBY<br>SMALL ROOMS</p>
-                    <div class="w-full h-32 bg-red-900/20 border border-dashed border-red-500 rounded"></div>
+            <h2 class="text-xl font-bold mb-6 text-center">PLANNING COMPARISON</h2>
+            <div class="flex h-1/2 gap-3">
+                <div class="flex-1 flex flex-col">
+                    <div class="flex-1 bg-red-900/20 border-2 border-red-500/30 rounded-2xl mb-2 flex items-center justify-center overflow-hidden">
+                        <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">❌</div>
+                    </div>
+                    <p class="text-[10px] font-bold text-center text-red-500">CENTER STAIRCASE<br>(SPACE LOSS)</p>
                 </div>
-                <div class="flex-1 bg-green-950/30 border border-green-900 rounded-xl p-2 flex flex-col items-center">
-                    <span class="text-2xl mb-2">✅</span>
-                    <p class="text-[10px] text-center mb-4">COMPACT LOBBY<br>BIGGER ROOMS</p>
-                    <div class="w-full h-32 bg-green-900/20 border border-dashed border-green-500 rounded"></div>
+                <div class="flex-1 flex flex-col">
+                    <div class="flex-1 bg-green-900/20 border-2 border-green-500/30 rounded-2xl mb-2 flex items-center justify-center overflow-hidden">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">✅</div>
+                    </div>
+                    <p class="text-[10px] font-bold text-center text-green-500">SIDE/CORNER<br>(BIG ROOMS)</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Visual Comparison -->
+        <!-- Slide 6: Space Comparison -->
         <div class="slide" id="slide-5">
-            <h2 class="text-2xl font-bold mb-6">REAL COMPARISON</h2>
-            <div class="space-y-4">
-                <div class="bg-gray-800 p-4 rounded-xl relative overflow-hidden">
-                    <p class="text-xs font-bold mb-2">TYPICAL DESIGN (WASTE)</p>
-                    <div class="h-2 w-full bg-red-500 rounded-full mb-1"></div>
-                    <p class="text-[10px] text-gray-400">25% Space in Corridor/Lobby</p>
+            <h2 class="text-2xl font-bold mb-8">SPACE EFFICIENCY</h2>
+            <div class="bg-white/5 p-6 rounded-3xl space-y-6">
+                <div>
+                    <div class="flex justify-between text-xs mb-2">
+                        <span>WASTE AREA (CENTER)</span>
+                        <span class="highlight-red">30%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 h-3 rounded-full overflow-hidden">
+                        <div class="bg-red-500 h-full w-[30%]"></div>
+                    </div>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl relative overflow-hidden">
-                    <p class="text-xs font-bold mb-2">HIMMU'S SMART DESIGN</p>
-                    <div class="h-2 w-[90%] bg-green-500 rounded-full mb-1"></div>
-                    <p class="text-[10px] text-gray-400">90% Usable Carpet Area</p>
+                <div>
+                    <div class="flex justify-between text-xs mb-2">
+                        <span>USABLE AREA (CORNER)</span>
+                        <span class="highlight-green">95%</span>
+                    </div>
+                    <div class="w-full bg-gray-700 h-3 rounded-full overflow-hidden">
+                        <div class="bg-green-500 h-full w-[95%]"></div>
+                    </div>
                 </div>
             </div>
-            <p class="mt-8 text-center font-bold highlight-yellow">Choose wisely!</p>
+            <p class="mt-6 text-center text-sm text-gray-400">Har inch ka sahi upyog karein!</p>
         </div>
 
         <!-- Slide 7: Ending CTA -->
         <div class="slide" id="slide-6">
             <div class="text-center">
-                <div class="w-20 h-20 bg-yellow-500 rounded-full mx-auto mb-6 flex items-center justify-center text-black text-3xl">🏠</div>
-                <h2 class="text-3xl font-black mb-2">SMART PLANNING = <br><span class="highlight-green">BETTER HOUSE</span></h2>
-                <p class="text-gray-400 mt-4 px-4">Practical tips ke liye follow karein</p>
+                <h2 class="text-3xl font-black mb-4">SMART PLANNING = <br><span class="highlight-yellow">DREAM HOME</span></h2>
+                <p class="text-gray-400 text-sm">Aisi aur practical tips ke liye subscribe karein!</p>
                 
-                <div class="mt-12 bg-white/5 p-6 rounded-3xl border border-white/10">
-                    <p class="text-sm font-bold tracking-tighter text-gray-500 uppercase">Creator</p>
-                    <h3 class="text-2xl font-black highlight-yellow">Civilian Himmu</h3>
+                <div class="mt-12 p-8 bg-gradient-to-br from-gray-800 to-gray-900 rounded-[40px] border border-white/10 shadow-2xl">
+                    <div class="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2 font-bold">Created By</div>
+                    <h3 class="text-3xl font-black highlight-yellow tracking-tighter">Civilian Himmu</h3>
                 </div>
 
-                <button class="cta-button uppercase tracking-wider">Follow for more</button>
+                <button class="cta-button w-full max-w-[200px] text-lg uppercase tracking-widest">Follow Now</button>
             </div>
         </div>
     </div>
@@ -282,10 +299,9 @@
     <script>
         let currentSlide = 0;
         const totalSlides = 7;
-        const slideDuration = 5000; // 5 seconds per slide
+        const slideDuration = 5000;
         let slideTimer;
 
-        // Create Progress Bars
         const progressContainer = document.getElementById('progress-dots');
         for (let i = 0; i < totalSlides; i++) {
             const bar = document.createElement('div');
@@ -298,14 +314,12 @@
         }
 
         function showSlide(index) {
-            // Cleanup previous state
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.progress-fill').forEach((f, i) => {
                 f.classList.remove('active-fill');
                 f.style.width = i < index ? '100%' : '0%';
             });
 
-            // Set current
             currentSlide = index;
             const activeSlide = document.getElementById(`slide-${index}`);
             const activeFill = document.getElementById(`fill-${index}`);
@@ -313,52 +327,34 @@
             activeSlide.classList.add('active');
             activeFill.classList.add('active-fill');
 
-            // Auto next
             clearTimeout(slideTimer);
             if (currentSlide < totalSlides - 1) {
                 slideTimer = setTimeout(nextSlide, slideDuration);
+            } else {
+                slideTimer = setTimeout(() => showSlide(0), slideDuration);
             }
         }
 
         function nextSlide() {
-            if (currentSlide < totalSlides - 1) {
-                showSlide(currentSlide + 1);
-            } else {
-                // Restart or stop
-                showSlide(0);
-            }
+            if (currentSlide < totalSlides - 1) showSlide(currentSlide + 1);
+            else showSlide(0);
         }
 
         function prevSlide() {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
+            if (currentSlide > 0) showSlide(currentSlide - 1);
         }
 
-        // Initialize
-        window.onload = () => {
-            showSlide(0);
-        };
+        window.onload = () => showSlide(0);
 
-        // Handle Touch Events for Swiping
         let touchstartX = 0;
         let touchendX = 0;
-        
         const slider = document.getElementById('app');
-
-        slider.addEventListener('touchstart', e => {
-            touchstartX = e.changedTouches[0].screenX;
-        });
-
+        slider.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
         slider.addEventListener('touchend', e => {
             touchendX = e.changedTouches[0].screenX;
-            handleGesture();
-        });
-
-        function handleGesture() {
             if (touchendX < touchstartX - 50) nextSlide();
             if (touchendX > touchstartX + 50) prevSlide();
-        }
+        });
     </script>
 </body>
 </html>
