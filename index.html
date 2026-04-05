@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toilet Size Guide - Civilian Himmu</title>
+    <title>Drawing Room Size Guide - Civilian Himmu</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -12,7 +12,7 @@
             --primary-green: #2ecc71;
             --primary-blue: #3498db;
             --primary-yellow: #f1c40f;
-            --bg-dark: #1a1a1a;
+            --bg-dark: #121212;
         }
 
         body {
@@ -28,7 +28,6 @@
             height: 100vh;
         }
 
-        /* 9:16 Aspect Ratio Container */
         .phone-canvas {
             width: 100%;
             max-width: 400px;
@@ -37,9 +36,8 @@
             background: var(--bg-dark);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
-            border-radius: 20px;
-            border: 1px solid #333;
+            box-shadow: 0 0 60px rgba(0,0,0,1);
+            border-radius: 24px;
         }
 
         .slide {
@@ -47,11 +45,11 @@
             inset: 0;
             display: flex;
             flex-direction: column;
-            padding: 40px 24px;
+            padding: 45px 25px;
             opacity: 0;
             pointer-events: none;
             transition: all 0.5s ease-in-out;
-            background: radial-gradient(circle at top right, #2a2a2a 0%, #111 100%);
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
         }
 
         .slide.active {
@@ -59,30 +57,30 @@
             pointer-events: auto;
         }
 
-        h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 1.1; }
+        h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 1.1; letter-spacing: -0.5px; }
         
-        /* Animation Classes */
+        /* Animations */
         .animate-zoom-in.active { animation: zoomIn 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .animate-slide-right.active { animation: slideRight 0.5s forwards ease-out; }
         .animate-shake.active { animation: shake 0.4s infinite; }
         .animate-pop.active { animation: pop 0.5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .animate-fade.active { animation: fadeIn 0.8s forwards ease-in; }
 
-        @keyframes zoomIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes slideRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes shake { 
-            0%, 100% { transform: translateX(0); } 
-            25% { transform: translateX(-6px); } 
-            75% { transform: translateX(6px); } 
+            0%, 100% { transform: translate(0, 0); } 
+            25% { transform: translate(-4px, 2px); } 
+            75% { transform: translate(4px, -2px); } 
         }
-        @keyframes pop { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Diagram Styling */
-        .blueprint-area {
-            border: 2px dashed #444;
-            background: rgba(255,255,255,0.02);
-            border-radius: 16px;
+        /* Architectural Elements */
+        .blueprint {
+            border: 2px dashed #333;
+            background: rgba(255,255,255,0.01);
+            border-radius: 20px;
             margin-top: 30px;
             flex-grow: 1;
             display: flex;
@@ -92,21 +90,12 @@
             position: relative;
         }
 
-        .toilet-shape {
-            border: 3px solid white;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s;
-        }
-
-        /* SVG Icons for WC and Shower */
-        .wc-icon { width: 30px; height: 40px; background: #666; border-radius: 5px 5px 15px 15px; position: relative; }
-        .wc-icon::after { content: ''; position: absolute; top: -5px; width: 34px; height: 10px; background: #888; left: -2px; border-radius: 2px; }
+        .sofa-icon { background: #444; border-radius: 4px; position: relative; }
+        .sofa-3-seater { width: 100px; height: 35px; }
+        .sofa-3-seater::after { content: ''; position: absolute; inset: 4px; border: 1px solid #666; border-radius: 2px; }
         
-        .shower-head { width: 20px; height: 20px; border: 2px solid #3498db; border-radius: 50%; position: relative; }
-        .shower-head::after { content: ''; position: absolute; width: 1px; height: 15px; background: #3498db; top: 100%; left: 50%; box-shadow: 5px 0 #3498db, -5px 0 #3498db; }
+        .table-icon { width: 40px; height: 25px; border: 2px solid #555; border-radius: 2px; margin: 15px; }
+        .tv-unit { width: 80px; height: 10px; background: #333; margin-top: 20px; border-radius: 2px; }
 
         .controls {
             position: absolute;
@@ -120,28 +109,24 @@
             z-index: 100;
         }
 
-        .nav-btn {
-            background: rgba(255,255,255,0.15);
-            border: none;
+        .btn-nav {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.1);
             color: white;
-            width: 45px;
-            height: 45px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            backdrop-filter: blur(8px);
         }
 
-        .badge {
-            padding: 5px 14px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .tag {
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 800;
             margin-bottom: 12px;
             display: inline-block;
         }
@@ -152,105 +137,106 @@
     <div class="phone-canvas">
         <!-- SLIDE 1: HOOK -->
         <div id="slide-1" class="slide active animate-zoom-in">
-            <div class="mt-16">
-                <h1 class="text-4xl">Toilet <span class="text-red-500">3x3</span> <br>bana diya? 😳</h1>
-                <p class="text-xl mt-4 text-gray-400 font-medium">Use karna bhi mushkil ho jayega!</p>
+            <div class="mt-12">
+                <h1 class="text-4xl">Drawing Room <br><span class="text-red-500">8x10</span> bana rahe ho? 😬</h1>
+                <p class="text-xl mt-4 text-gray-400">Guests baithne ki jagah nahi milegi!</p>
             </div>
             
-            <div class="blueprint-area overflow-hidden">
-                <div class="absolute inset-0 bg-red-600/10 flex items-center justify-center">
-                    <div class="text-9xl font-bold text-red-600 opacity-20">❌</div>
+            <div class="blueprint overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div class="text-[12rem] font-bold text-red-600 opacity-10">❌</div>
                 </div>
-                <div class="toilet-shape w-32 h-32 border-red-500 bg-red-500/10">
-                    <div class="wc-icon scale-75 opacity-50"></div>
-                    <div class="absolute -bottom-8 text-red-500 font-bold">3x3 FEET</div>
+                <div class="border-4 border-red-500/50 w-48 h-36 bg-red-500/5 flex flex-col items-center justify-center p-4">
+                    <div class="sofa-icon sofa-3-seater opacity-40"></div>
+                    <p class="text-red-500 font-black text-2xl mt-4">8' x 10'</p>
                 </div>
-                <div class="mt-20 text-red-400 text-xs font-bold animate-pulse">WARNING: TOO SMALL</div>
-            </div>
-            
-            <div class="mt-auto mb-12 text-center">
-                <p class="text-xs font-bold text-gray-500 tracking-[0.3em] uppercase">Professional Design Series</p>
+                <p class="mt-8 text-red-400 font-bold tracking-widest text-xs uppercase animate-pulse">Too Congested!</p>
             </div>
         </div>
 
         <!-- SLIDE 2: MINIMUM -->
         <div id="slide-2" class="slide animate-slide-right">
-            <span class="badge bg-green-600">MINIMUM SIZE</span>
-            <h1 class="text-3xl">4x4 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">WC + Basic movement possible</p>
+            <span class="tag bg-green-600">MINIMUM SIZE</span>
+            <h1 class="text-3xl">10x12 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">Basic sofa + sitting possible</p>
             
-            <div class="blueprint-area">
-                <div class="toilet-shape w-40 h-40 border-green-500 bg-green-500/5">
-                    <div class="wc-icon"></div>
-                    <!-- Dimension Arrows -->
-                    <div class="absolute -left-8 h-full border-l border-green-500 flex items-center justify-center">
-                        <span class="bg-dark px-1 text-[10px] rotate-90">4'</span>
-                    </div>
-                    <div class="absolute -top-8 w-full border-t border-green-500 flex items-center justify-center">
-                        <span class="bg-dark px-1 text-[10px]">4'</span>
+            <div class="blueprint">
+                <div class="border-2 border-green-500 w-52 h-64 bg-green-500/5 flex flex-col items-center p-6">
+                    <div class="sofa-icon sofa-3-seater"></div>
+                    <div class="table-icon"></div>
+                    <div class="flex gap-4 mt-auto">
+                        <div class="w-12 h-12 bg-gray-700 rounded-sm"></div>
+                        <div class="w-12 h-12 bg-gray-700 rounded-sm"></div>
                     </div>
                 </div>
-                <div class="mt-12 text-green-400 text-sm font-semibold">BASIC ATTACHED</div>
+                <p class="mt-6 text-green-400 font-bold">10' x 12' PLAN</p>
             </div>
         </div>
 
-        <!-- SLIDE 3: PRACTICAL -->
+        <!-- SLIDE 3: COMFORTABLE -->
         <div id="slide-3" class="slide animate-slide-right">
-            <span class="badge bg-blue-600">COMBINED SIZE</span>
-            <h1 class="text-3xl">4x7 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">WC + Shower space comfortable</p>
+            <span class="tag bg-blue-600">COMFORTABLE SIZE</span>
+            <h1 class="text-3xl">12x14 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">Better movement + more seating</p>
             
-            <div class="blueprint-area">
-                <div class="toilet-shape w-36 h-60 border-blue-500 bg-blue-500/5 flex-col justify-between py-6">
-                    <div class="shower-head"></div>
-                    <div class="wc-icon"></div>
-                    <div class="absolute left-0 w-full h-px bg-blue-500/30 top-1/2"></div>
+            <div class="blueprint">
+                <div class="border-2 border-blue-500 w-60 h-72 bg-blue-500/5 p-4 flex flex-col">
+                    <div class="flex">
+                        <div class="sofa-icon sofa-3-seater"></div>
+                        <div class="w-10 h-35 bg-gray-700 ml-2 rounded-sm"></div>
+                    </div>
+                    <div class="table-icon mx-auto my-8"></div>
+                    <div class="tv-unit mx-auto mt-auto"></div>
                 </div>
-                <div class="mt-8 text-blue-400 text-sm font-semibold">IDEAL FOR FLATS</div>
+                <p class="mt-4 text-blue-400 font-bold">12' x 14' L-SHAPE</p>
             </div>
         </div>
 
-        <!-- SLIDE 4: COMFORTABLE -->
+        <!-- SLIDE 4: PERFECT -->
         <div id="slide-4" class="slide animate-slide-right">
-            <span class="badge bg-yellow-600">PREMIUM SIZE</span>
-            <h1 class="text-3xl text-yellow-500">5x8 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">Proper movement + Easy use</p>
+            <span class="tag bg-yellow-600">PERFECT SIZE</span>
+            <h1 class="text-3xl text-yellow-500">14x16 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">Spacious + Premium feeling</p>
             
-            <div class="blueprint-area">
-                <div class="toilet-shape w-48 h-64 border-yellow-500 bg-yellow-500/5">
-                    <div class="absolute top-4 left-4 shower-head"></div>
-                    <div class="wc-icon mt-10"></div>
-                    <div class="absolute bottom-4 w-12 h-8 border-2 border-yellow-500/40 rounded-sm text-[8px] flex items-center justify-center">BASIN</div>
+            <div class="blueprint">
+                <div class="border-2 border-yellow-500 w-64 h-80 bg-yellow-500/5 p-4">
+                    <div class="flex justify-between">
+                        <div class="w-10 h-32 bg-gray-700 rounded-sm"></div>
+                        <div class="sofa-icon sofa-3-seater w-32"></div>
+                        <div class="w-10 h-32 bg-gray-700 rounded-sm"></div>
+                    </div>
+                    <div class="table-icon w-24 h-16 mx-auto my-12"></div>
+                    <div class="tv-unit w-40 h-4 mx-auto mt-auto"></div>
                 </div>
-                <div class="mt-8 text-yellow-500 text-sm font-semibold">LUXURY SPACING</div>
+                <p class="mt-4 text-yellow-500 font-bold">14' x 16' ROYAL SIZE</p>
             </div>
         </div>
 
         <!-- SLIDE 5: PROBLEMS -->
         <div id="slide-5" class="slide animate-shake">
-            <span class="badge bg-red-600">HUGE ERROR</span>
-            <h1 class="text-3xl">3x3 PROBLEMS</h1>
+            <span class="tag bg-red-600">MAJOR PROBLEMS</span>
+            <h1 class="text-3xl">8x10 ISSUES</h1>
             
-            <div class="mt-10 space-y-5">
-                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
-                    <span class="text-2xl">🚪</span>
+            <div class="mt-12 space-y-6">
+                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
+                    <span class="text-3xl">🛋️</span>
                     <div>
-                        <p class="font-bold text-white">Door Issue</p>
-                        <p class="text-xs text-gray-400">Door seat se takrayega</p>
+                        <p class="font-bold">Sofa Tight</p>
+                        <p class="text-xs text-gray-400">Standard sofa fits hi nahi hoga</p>
                     </div>
                 </div>
-                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
-                    <span class="text-2xl">📏</span>
+                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
+                    <span class="text-3xl">🚶</span>
                     <div>
-                        <p class="font-bold text-white">No Movement</p>
-                        <p class="text-xs text-gray-400">Turning space bilkul nahi milega</p>
+                        <p class="font-bold">No Movement</p>
+                        <p class="text-xs text-gray-400">Walking space zero ho jayega</p>
                     </div>
                 </div>
-                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
-                    <span class="text-2xl">😫</span>
+                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
+                    <span class="text-3xl">🥵</span>
                     <div>
-                        <p class="font-bold text-white">Uncomfortable</p>
-                        <p class="text-xs text-gray-400">Rozana use me dikkat hogi</p>
+                        <p class="font-bold">Congested Feel</p>
+                        <p class="text-xs text-gray-400">Ghabrat aur garmi mehsoos hogi</p>
                     </div>
                 </div>
             </div>
@@ -258,101 +244,91 @@
 
         <!-- SLIDE 6: COMPARISON -->
         <div id="slide-6" class="slide animate-pop">
-            <h1 class="text-2xl mb-10 text-center">SIZE COMPARISON</h1>
+            <h1 class="text-2xl mb-12 text-center font-black">SIZE COMPARISON</h1>
             
-            <div class="grid grid-cols-2 gap-4">
-                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-red-500">
-                    <span class="text-lg font-bold text-gray-400">3x3</span>
-                    <span class="text-red-500 text-3xl mt-2 font-bold">❌</span>
+            <div class="grid grid-cols-2 gap-5">
+                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-red-500">
+                    <p class="text-gray-400 font-bold">8x10</p>
+                    <p class="text-3xl mt-2">❌</p>
                 </div>
-                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-green-500">
-                    <span class="text-lg font-bold text-gray-400">4x4</span>
-                    <span class="text-green-500 text-3xl mt-2 font-bold">✅</span>
+                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-green-500">
+                    <p class="text-gray-400 font-bold">10x12</p>
+                    <p class="text-3xl mt-2">✅</p>
                 </div>
-                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-blue-500">
-                    <span class="text-lg font-bold text-gray-400">4x7</span>
-                    <span class="text-blue-500 text-3xl mt-2 font-bold">⭐</span>
+                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-blue-500">
+                    <p class="text-gray-400 font-bold">12x14</p>
+                    <p class="text-3xl mt-2">⭐</p>
                 </div>
-                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-yellow-500">
-                    <span class="text-lg font-bold text-gray-400">5x8</span>
-                    <span class="text-yellow-500 text-3xl mt-2 font-bold">👑</span>
+                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-yellow-500">
+                    <p class="text-gray-400 font-bold">14x16</p>
+                    <p class="text-3xl mt-2">👑</p>
                 </div>
-            </div>
-            
-            <div class="mt-12 text-center text-xs text-gray-500 font-medium tracking-wide">
-                *Dimensions are in Feet (Standard)
             </div>
         </div>
 
         <!-- SLIDE 7: CTA -->
         <div id="slide-7" class="slide animate-fade">
             <div class="flex flex-col items-center justify-center h-full text-center">
-                <div class="w-24 h-24 bg-gradient-to-tr from-yellow-600 to-yellow-400 rounded-full flex items-center justify-center text-5xl mb-8 shadow-lg shadow-yellow-500/20">🚽</div>
-                <h1 class="text-3xl mb-6">Toilet Chhota = <br>Daily Problem</h1>
-                <p class="text-lg text-gray-300 px-6 mb-12">Planning sahi = Comfortable use</p>
+                <div class="w-28 h-28 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-5xl mb-8 shadow-2xl shadow-yellow-500/30">🏡</div>
+                <h1 class="text-3xl mb-4">Drawing room chhota <br>= Guest Problem</h1>
+                <p class="text-lg text-gray-400 px-4 mb-10">Planning sahi = <br>Spacious & Luxury feel</p>
                 
-                <div class="bg-white/5 p-8 rounded-3xl w-full border border-white/10">
-                    <p class="text-xs text-gray-500 mb-2 uppercase tracking-widest">Subscribe for more</p>
-                    <p class="text-2xl font-bold text-yellow-500">Civilian Himmu</p>
+                <div class="bg-white/5 border border-white/10 p-8 rounded-[2rem] w-full">
+                    <p class="text-xs text-gray-500 mb-2 uppercase tracking-[0.2em]">Daily Tips</p>
+                    <p class="text-2xl font-black text-yellow-500">Civilian Himmu</p>
                 </div>
             </div>
         </div>
 
         <!-- Navigation UI -->
         <div class="controls">
-            <button class="nav-btn" onclick="prevSlide()">❮</button>
-            <span id="slide-number" class="text-xs font-bold text-gray-500 tracking-tighter">01 / 07</span>
-            <button class="nav-btn" onclick="nextSlide()">❯</button>
+            <button class="btn-nav" onclick="prev()">❮</button>
+            <span id="counter" class="text-[10px] font-black text-gray-600 tracking-tighter">01 / 07</span>
+            <button class="btn-nav" onclick="next()">❯</button>
         </div>
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 7;
+        let current = 1;
+        const total = 7;
 
-        function updateSlide() {
-            // Reset animations and classes
+        function update() {
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-            
-            // Set current active
-            const activeSlide = document.getElementById(`slide-${currentSlide}`);
-            activeSlide.classList.add('active');
-
-            // Update bottom counter
-            document.getElementById('slide-number').innerText = 
-                `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+            document.getElementById(`slide-${current}`).classList.add('active');
+            document.getElementById('counter').innerText = 
+                `${String(current).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
         }
 
-        function nextSlide() {
-            currentSlide = (currentSlide % totalSlides) + 1;
-            updateSlide();
+        function next() {
+            current = (current % total) + 1;
+            update();
         }
 
-        function prevSlide() {
-            currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
-            updateSlide();
+        function prev() {
+            current = current > 1 ? current - 1 : total;
+            update();
         }
 
-        // Auto-scroll every 4.5 seconds for Shorts feel
-        let autoPlay = setInterval(nextSlide, 4500);
+        // Auto-Play
+        let interval = setInterval(next, 4500);
 
-        // Reset autoPlay on manual interaction
-        function resetTimer() {
-            clearInterval(autoPlay);
-            autoPlay = setInterval(nextSlide, 7000);
+        function reset() {
+            clearInterval(interval);
+            interval = setInterval(next, 8000);
         }
 
-        document.querySelector('.controls').addEventListener('click', resetTimer);
+        document.querySelector('.controls').addEventListener('click', reset);
 
-        // Mobile Swipe Gestures
-        let startX = 0;
+        // Touch handling
+        let x = 0;
         const canvas = document.querySelector('.phone-canvas');
-
-        canvas.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        canvas.addEventListener('touchstart', e => x = e.touches[0].clientX);
         canvas.addEventListener('touchend', e => {
-            let endX = e.changedTouches[0].clientX;
-            if (startX - endX > 50) { nextSlide(); resetTimer(); }
-            if (endX - startX > 50) { prevSlide(); resetTimer(); }
+            let dx = e.changedTouches[0].clientX - x;
+            if (Math.abs(dx) > 50) {
+                dx < 0 ? next() : prev();
+                reset();
+            }
         });
     </script>
 </body>
