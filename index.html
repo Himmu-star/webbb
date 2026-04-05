@@ -1,335 +1,364 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drawing Room Size Guide - Civilian Himmu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>30x40 House Plan Biggest Mistake - Civilian Himmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-red: #ff4d4d;
-            --primary-green: #2ecc71;
-            --primary-blue: #3498db;
-            --primary-yellow: #f1c40f;
+            --red-mistake: #ef4444;
+            --green-correct: #22c55e;
+            --yellow-highlight: #facc15;
             --bg-dark: #121212;
+            --card-dark: #1e1e1e;
         }
 
         body {
-            margin: 0;
-            padding: 0;
+            font-family: 'Poppins', sans-serif;
             background-color: #000;
             color: white;
-            font-family: 'Poppins', sans-serif;
-            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent scrolling, use slides */
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
 
-        .phone-canvas {
-            width: 100%;
-            max-width: 400px;
-            height: 100%;
-            max-height: 711px;
-            background: var(--bg-dark);
+        /* 9:16 Aspect Ratio Container */
+        .shorts-container {
+            width: 100vw;
+            height: 100vh;
+            max-width: 56.25vh; /* Maintain 9:16 */
+            background-color: var(--bg-dark);
             position: relative;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
             overflow: hidden;
-            box-shadow: 0 0 60px rgba(0,0,0,1);
-            border-radius: 24px;
         }
 
         .slide {
             position: absolute;
             inset: 0;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            padding: 45px 25px;
+            justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.5s ease-in-out;
-            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            transition: opacity 0.5s ease-in-out, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(1.1);
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
+            transform: scale(1);
         }
 
-        h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 1.1; letter-spacing: -0.5px; }
-        
-        /* Animations */
-        .animate-zoom-in.active { animation: zoomIn 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .animate-slide-right.active { animation: slideRight 0.5s forwards ease-out; }
-        .animate-shake.active { animation: shake 0.4s infinite; }
-        .animate-pop.active { animation: pop 0.5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .animate-fade.active { animation: fadeIn 0.8s forwards ease-in; }
-
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes slideRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-        @keyframes shake { 
-            0%, 100% { transform: translate(0, 0); } 
-            25% { transform: translate(-4px, 2px); } 
-            75% { transform: translate(4px, -2px); } 
-        }
-        @keyframes pop { from { transform: scale(0.4); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Architectural Elements */
-        .blueprint {
-            border: 2px dashed #333;
-            background: rgba(255,255,255,0.01);
-            border-radius: 20px;
-            margin-top: 30px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
+        h1, h2 {
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
 
-        .sofa-icon { background: #444; border-radius: 4px; position: relative; }
-        .sofa-3-seater { width: 100px; height: 35px; }
-        .sofa-3-seater::after { content: ''; position: absolute; inset: 4px; border: 1px solid #666; border-radius: 2px; }
-        
-        .table-icon { width: 40px; height: 25px; border: 2px solid #555; border-radius: 2px; margin: 15px; }
-        .tv-unit { width: 80px; height: 10px; background: #333; margin-top: 20px; border-radius: 2px; }
+        .highlight-red { color: var(--red-mistake); }
+        .highlight-green { color: var(--green-correct); }
+        .highlight-yellow { color: var(--yellow-highlight); }
 
-        .controls {
+        /* Progress Bar */
+        .progress-container {
             position: absolute;
-            bottom: 25px;
-            left: 0;
-            right: 0;
+            top: 10px;
+            left: 10px;
+            right: 10px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
+            gap: 5px;
             z-index: 100;
         }
 
-        .btn-nav {
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: white;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(8px);
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            flex: 1;
+            border-radius: 2px;
+            overflow: hidden;
         }
 
-        .tag {
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            display: inline-block;
+        .progress-fill {
+            height: 100%;
+            background: white;
+            width: 0%;
+        }
+
+        .active-fill {
+            animation: fillProgress 5s linear forwards;
+        }
+
+        @keyframes fillProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Architectural Elements */
+        .plan-box {
+            background: #2a2a2a;
+            border: 2px dashed #444;
+            border-radius: 12px;
+            position: relative;
+            margin: 1.5rem 0;
+        }
+
+        .mistake-overlay {
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid var(--red-mistake);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.4; }
+        }
+
+        .cta-button {
+            background: white;
+            color: black;
+            padding: 12px 24px;
+            border-radius: 99px;
+            font-weight: 700;
+            margin-top: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* Navigation Buttons */
+        .nav-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            z-index: 50;
+        }
+        .nav-left, .nav-right {
+            flex: 1;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <div class="phone-canvas">
-        <!-- SLIDE 1: HOOK -->
-        <div id="slide-1" class="slide active animate-zoom-in">
-            <div class="mt-12">
-                <h1 class="text-4xl">Drawing Room <br><span class="text-red-500">8x10</span> bana rahe ho? 😬</h1>
-                <p class="text-xl mt-4 text-gray-400">Guests baithne ki jagah nahi milegi!</p>
-            </div>
-            
-            <div class="blueprint overflow-hidden">
-                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <div class="text-[12rem] font-bold text-red-600 opacity-10">❌</div>
-                </div>
-                <div class="border-4 border-red-500/50 w-48 h-36 bg-red-500/5 flex flex-col items-center justify-center p-4">
-                    <div class="sofa-icon sofa-3-seater opacity-40"></div>
-                    <p class="text-red-500 font-black text-2xl mt-4">8' x 10'</p>
-                </div>
-                <p class="mt-8 text-red-400 font-bold tracking-widest text-xs uppercase animate-pulse">Too Congested!</p>
+    <div class="shorts-container" id="app">
+        <!-- Progress Bars -->
+        <div class="progress-container" id="progress-dots"></div>
+
+        <!-- Navigation Taps -->
+        <div class="nav-overlay">
+            <div class="nav-left" onclick="prevSlide()"></div>
+            <div class="nav-right" onclick="nextSlide()"></div>
+        </div>
+
+        <!-- Slide 1: Hook -->
+        <div class="slide active" id="slide-0">
+            <div class="absolute inset-0 opacity-20" style="background-image: url('https://www.transparenttextures.com/patterns/graphy.png');"></div>
+            <h1 class="text-5xl font-black mb-4">30x40 <br><span class="highlight-yellow">House Plan</span> ki</h1>
+            <h2 class="text-4xl font-black bg-red-600 px-2 py-1 inline-block">SABSE BADI GALTI 😳</h2>
+            <p class="mt-6 text-xl text-gray-300">Log space waste kar dete hain...</p>
+            <div class="mt-auto mb-10 text-center animate-pulse">
+                <span class="text-sm tracking-widest text-gray-400">TAP TO START →</span>
             </div>
         </div>
 
-        <!-- SLIDE 2: MINIMUM -->
-        <div id="slide-2" class="slide animate-slide-right">
-            <span class="tag bg-green-600">MINIMUM SIZE</span>
-            <h1 class="text-3xl">10x12 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">Basic sofa + sitting possible</p>
-            
-            <div class="blueprint">
-                <div class="border-2 border-green-500 w-52 h-64 bg-green-500/5 flex flex-col items-center p-6">
-                    <div class="sofa-icon sofa-3-seater"></div>
-                    <div class="table-icon"></div>
-                    <div class="flex gap-4 mt-auto">
-                        <div class="w-12 h-12 bg-gray-700 rounded-sm"></div>
-                        <div class="w-12 h-12 bg-gray-700 rounded-sm"></div>
-                    </div>
+        <!-- Slide 2: Mistake Reveal -->
+        <div class="slide" id="slide-1">
+            <h2 class="text-3xl font-bold mb-8">BIGGEST MISTAKE</h2>
+            <div class="plan-box h-64 flex items-center justify-center">
+                <div class="grid grid-cols-3 grid-rows-3 gap-2 w-4/5 h-4/5">
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="mistake-overlay rounded flex items-center justify-center font-bold text-red-500">LOBBY</div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
+                    <div class="bg-gray-600 rounded"></div>
                 </div>
-                <p class="mt-6 text-green-400 font-bold">10' x 12' PLAN</p>
+                <div class="absolute top-0 right-0 p-2 bg-red-600 text-xs font-bold">⚠️ WASTE SPACE</div>
             </div>
+            <h3 class="text-4xl font-black highlight-red italic">BADA USELESS LOBBY</h3>
         </div>
 
-        <!-- SLIDE 3: COMFORTABLE -->
-        <div id="slide-3" class="slide animate-slide-right">
-            <span class="tag bg-blue-600">COMFORTABLE SIZE</span>
-            <h1 class="text-3xl">12x14 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">Better movement + more seating</p>
-            
-            <div class="blueprint">
-                <div class="border-2 border-blue-500 w-60 h-72 bg-blue-500/5 p-4 flex flex-col">
-                    <div class="flex">
-                        <div class="sofa-icon sofa-3-seater"></div>
-                        <div class="w-10 h-35 bg-gray-700 ml-2 rounded-sm"></div>
-                    </div>
-                    <div class="table-icon mx-auto my-8"></div>
-                    <div class="tv-unit mx-auto mt-auto"></div>
+        <!-- Slide 3: Problem Explanation -->
+        <div class="slide" id="slide-2">
+            <h2 class="text-3xl font-bold mb-6">ISSE KYA HOTA HAI?</h2>
+            <div class="space-y-6">
+                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
+                    <span class="text-2xl text-red-500">❌</span>
+                    <p class="text-lg">Rooms chhote ho jate hain</p>
                 </div>
-                <p class="mt-4 text-blue-400 font-bold">12' x 14' L-SHAPE</p>
-            </div>
-        </div>
-
-        <!-- SLIDE 4: PERFECT -->
-        <div id="slide-4" class="slide animate-slide-right">
-            <span class="tag bg-yellow-600">PERFECT SIZE</span>
-            <h1 class="text-3xl text-yellow-500">14x16 FEET</h1>
-            <p class="text-sm text-gray-400 mt-2">Spacious + Premium feeling</p>
-            
-            <div class="blueprint">
-                <div class="border-2 border-yellow-500 w-64 h-80 bg-yellow-500/5 p-4">
-                    <div class="flex justify-between">
-                        <div class="w-10 h-32 bg-gray-700 rounded-sm"></div>
-                        <div class="sofa-icon sofa-3-seater w-32"></div>
-                        <div class="w-10 h-32 bg-gray-700 rounded-sm"></div>
-                    </div>
-                    <div class="table-icon w-24 h-16 mx-auto my-12"></div>
-                    <div class="tv-unit w-40 h-4 mx-auto mt-auto"></div>
+                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
+                    <span class="text-2xl text-red-500">❌</span>
+                    <p class="text-lg">Hall ka space cut jata hai</p>
                 </div>
-                <p class="mt-4 text-yellow-500 font-bold">14' x 16' ROYAL SIZE</p>
-            </div>
-        </div>
-
-        <!-- SLIDE 5: PROBLEMS -->
-        <div id="slide-5" class="slide animate-shake">
-            <span class="tag bg-red-600">MAJOR PROBLEMS</span>
-            <h1 class="text-3xl">8x10 ISSUES</h1>
-            
-            <div class="mt-12 space-y-6">
-                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
-                    <span class="text-3xl">🛋️</span>
-                    <div>
-                        <p class="font-bold">Sofa Tight</p>
-                        <p class="text-xs text-gray-400">Standard sofa fits hi nahi hoga</p>
-                    </div>
-                </div>
-                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
-                    <span class="text-3xl">🚶</span>
-                    <div>
-                        <p class="font-bold">No Movement</p>
-                        <p class="text-xs text-gray-400">Walking space zero ho jayega</p>
-                    </div>
-                </div>
-                <div class="bg-red-500/10 p-5 rounded-2xl border-l-4 border-red-500 flex items-center gap-4">
-                    <span class="text-3xl">🥵</span>
-                    <div>
-                        <p class="font-bold">Congested Feel</p>
-                        <p class="text-xs text-gray-400">Ghabrat aur garmi mehsoos hogi</p>
-                    </div>
+                <div class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border-l-4 border-red-500">
+                    <span class="text-2xl text-red-500">❌</span>
+                    <p class="text-lg">Planning weak lagti hai</p>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 6: COMPARISON -->
-        <div id="slide-6" class="slide animate-pop">
-            <h1 class="text-2xl mb-12 text-center font-black">SIZE COMPARISON</h1>
-            
-            <div class="grid grid-cols-2 gap-5">
-                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-red-500">
-                    <p class="text-gray-400 font-bold">8x10</p>
-                    <p class="text-3xl mt-2">❌</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-green-500">
-                    <p class="text-gray-400 font-bold">10x12</p>
-                    <p class="text-3xl mt-2">✅</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-blue-500">
-                    <p class="text-gray-400 font-bold">12x14</p>
-                    <p class="text-3xl mt-2">⭐</p>
-                </div>
-                <div class="bg-white/5 p-6 rounded-3xl text-center border-b-4 border-yellow-500">
-                    <p class="text-gray-400 font-bold">14x16</p>
-                    <p class="text-3xl mt-2">👑</p>
+        <!-- Slide 4: Why 30x40 Important -->
+        <div class="slide" id="slide-3">
+            <div class="border-2 border-yellow-500 p-6 rounded-2xl">
+                <h2 class="text-3xl font-bold mb-2">30' x 40' PLOT</h2>
+                <p class="text-yellow-500 font-bold mb-6">HAR FOOT IMPORTANT HAI</p>
+                <div class="relative h-48 bg-gray-800 rounded-lg flex items-center justify-center border border-gray-600">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow-500 text-black px-3 py-1 text-xs font-bold rounded">30 FT</div>
+                    <div class="absolute top-1/2 -right-10 -translate-y-1/2 rotate-90 bg-yellow-500 text-black px-3 py-1 text-xs font-bold rounded">40 FT</div>
+                    <p class="text-center text-gray-400 text-sm px-4">Compact planning se hi 3 BHK set hoga!</p>
                 </div>
             </div>
         </div>
 
-        <!-- SLIDE 7: CTA -->
-        <div id="slide-7" class="slide animate-fade">
-            <div class="flex flex-col items-center justify-center h-full text-center">
-                <div class="w-28 h-28 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center text-5xl mb-8 shadow-2xl shadow-yellow-500/30">🏡</div>
-                <h1 class="text-3xl mb-4">Drawing room chhota <br>= Guest Problem</h1>
-                <p class="text-lg text-gray-400 px-4 mb-10">Planning sahi = <br>Spacious & Luxury feel</p>
+        <!-- Slide 5: Wrong vs Right -->
+        <div class="slide" id="slide-4">
+            <h2 class="text-2xl font-bold mb-4 text-center">WRONG VS SMART</h2>
+            <div class="flex h-full gap-2">
+                <div class="flex-1 bg-red-950/30 border border-red-900 rounded-xl p-2 flex flex-col items-center">
+                    <span class="text-2xl mb-2">❌</span>
+                    <p class="text-[10px] text-center mb-4">BIG LOBBY<br>SMALL ROOMS</p>
+                    <div class="w-full h-32 bg-red-900/20 border border-dashed border-red-500 rounded"></div>
+                </div>
+                <div class="flex-1 bg-green-950/30 border border-green-900 rounded-xl p-2 flex flex-col items-center">
+                    <span class="text-2xl mb-2">✅</span>
+                    <p class="text-[10px] text-center mb-4">COMPACT LOBBY<br>BIGGER ROOMS</p>
+                    <div class="w-full h-32 bg-green-900/20 border border-dashed border-green-500 rounded"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Visual Comparison -->
+        <div class="slide" id="slide-5">
+            <h2 class="text-2xl font-bold mb-6">REAL COMPARISON</h2>
+            <div class="space-y-4">
+                <div class="bg-gray-800 p-4 rounded-xl relative overflow-hidden">
+                    <p class="text-xs font-bold mb-2">TYPICAL DESIGN (WASTE)</p>
+                    <div class="h-2 w-full bg-red-500 rounded-full mb-1"></div>
+                    <p class="text-[10px] text-gray-400">25% Space in Corridor/Lobby</p>
+                </div>
+                <div class="bg-gray-800 p-4 rounded-xl relative overflow-hidden">
+                    <p class="text-xs font-bold mb-2">HIMMU'S SMART DESIGN</p>
+                    <div class="h-2 w-[90%] bg-green-500 rounded-full mb-1"></div>
+                    <p class="text-[10px] text-gray-400">90% Usable Carpet Area</p>
+                </div>
+            </div>
+            <p class="mt-8 text-center font-bold highlight-yellow">Choose wisely!</p>
+        </div>
+
+        <!-- Slide 7: Ending CTA -->
+        <div class="slide" id="slide-6">
+            <div class="text-center">
+                <div class="w-20 h-20 bg-yellow-500 rounded-full mx-auto mb-6 flex items-center justify-center text-black text-3xl">🏠</div>
+                <h2 class="text-3xl font-black mb-2">SMART PLANNING = <br><span class="highlight-green">BETTER HOUSE</span></h2>
+                <p class="text-gray-400 mt-4 px-4">Practical tips ke liye follow karein</p>
                 
-                <div class="bg-white/5 border border-white/10 p-8 rounded-[2rem] w-full">
-                    <p class="text-xs text-gray-500 mb-2 uppercase tracking-[0.2em]">Daily Tips</p>
-                    <p class="text-2xl font-black text-yellow-500">Civilian Himmu</p>
+                <div class="mt-12 bg-white/5 p-6 rounded-3xl border border-white/10">
+                    <p class="text-sm font-bold tracking-tighter text-gray-500 uppercase">Creator</p>
+                    <h3 class="text-2xl font-black highlight-yellow">Civilian Himmu</h3>
                 </div>
-            </div>
-        </div>
 
-        <!-- Navigation UI -->
-        <div class="controls">
-            <button class="btn-nav" onclick="prev()">❮</button>
-            <span id="counter" class="text-[10px] font-black text-gray-600 tracking-tighter">01 / 07</span>
-            <button class="btn-nav" onclick="next()">❯</button>
+                <button class="cta-button uppercase tracking-wider">Follow for more</button>
+            </div>
         </div>
     </div>
 
     <script>
-        let current = 1;
-        const total = 7;
+        let currentSlide = 0;
+        const totalSlides = 7;
+        const slideDuration = 5000; // 5 seconds per slide
+        let slideTimer;
 
-        function update() {
+        // Create Progress Bars
+        const progressContainer = document.getElementById('progress-dots');
+        for (let i = 0; i < totalSlides; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'progress-bar';
+            const fill = document.createElement('div');
+            fill.className = 'progress-fill';
+            fill.id = `fill-${i}`;
+            bar.appendChild(fill);
+            progressContainer.appendChild(bar);
+        }
+
+        function showSlide(index) {
+            // Cleanup previous state
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
-            document.getElementById(`slide-${current}`).classList.add('active');
-            document.getElementById('counter').innerText = 
-                `${String(current).padStart(2, '0')} / ${String(total).padStart(2, '0')}`;
-        }
+            document.querySelectorAll('.progress-fill').forEach((f, i) => {
+                f.classList.remove('active-fill');
+                f.style.width = i < index ? '100%' : '0%';
+            });
 
-        function next() {
-            current = (current % total) + 1;
-            update();
-        }
+            // Set current
+            currentSlide = index;
+            const activeSlide = document.getElementById(`slide-${index}`);
+            const activeFill = document.getElementById(`fill-${index}`);
+            
+            activeSlide.classList.add('active');
+            activeFill.classList.add('active-fill');
 
-        function prev() {
-            current = current > 1 ? current - 1 : total;
-            update();
-        }
-
-        // Auto-Play
-        let interval = setInterval(next, 4500);
-
-        function reset() {
-            clearInterval(interval);
-            interval = setInterval(next, 8000);
-        }
-
-        document.querySelector('.controls').addEventListener('click', reset);
-
-        // Touch handling
-        let x = 0;
-        const canvas = document.querySelector('.phone-canvas');
-        canvas.addEventListener('touchstart', e => x = e.touches[0].clientX);
-        canvas.addEventListener('touchend', e => {
-            let dx = e.changedTouches[0].clientX - x;
-            if (Math.abs(dx) > 50) {
-                dx < 0 ? next() : prev();
-                reset();
+            // Auto next
+            clearTimeout(slideTimer);
+            if (currentSlide < totalSlides - 1) {
+                slideTimer = setTimeout(nextSlide, slideDuration);
             }
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides - 1) {
+                showSlide(currentSlide + 1);
+            } else {
+                // Restart or stop
+                showSlide(0);
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                showSlide(currentSlide - 1);
+            }
+        }
+
+        // Initialize
+        window.onload = () => {
+            showSlide(0);
+        };
+
+        // Handle Touch Events for Swiping
+        let touchstartX = 0;
+        let touchendX = 0;
+        
+        const slider = document.getElementById('app');
+
+        slider.addEventListener('touchstart', e => {
+            touchstartX = e.changedTouches[0].screenX;
         });
+
+        slider.addEventListener('touchend', e => {
+            touchendX = e.changedTouches[0].screenX;
+            handleGesture();
+        });
+
+        function handleGesture() {
+            if (touchendX < touchstartX - 50) nextSlide();
+            if (touchendX > touchstartX + 50) prevSlide();
+        }
     </script>
 </body>
 </html>
