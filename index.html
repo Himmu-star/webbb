@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>5 Small House Mistakes - Civilian Himmu</title>
+    <title>Ventilation Rule - Civilian Himmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --red-mistake: #ef4444;
             --green-correct: #22c55e;
-            --yellow-highlight: #facc15;
-            --bg-dark: #0f0f0f;
+            --blue-air: #3b82f6;
+            --bg-dark: #121212;
         }
 
         body {
@@ -40,25 +40,20 @@
         .slide {
             position: absolute;
             inset: 0;
-            padding: 1.5rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(1.1);
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            transform: translateY(20px);
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
-            transform: scale(1);
-        }
-
-        .slide.prev {
-            transform: scale(0.9);
-            opacity: 0;
+            transform: translateY(0);
         }
 
         h1, h2 {
@@ -92,7 +87,7 @@
         }
 
         .active-fill {
-            animation: fillProgress 4s linear forwards;
+            animation: fillProgress 5s linear forwards;
         }
 
         @keyframes fillProgress {
@@ -100,24 +95,47 @@
             to { width: 100%; }
         }
 
-        /* Design Elements */
-        .mistake-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 1.5rem;
-            margin-top: 1.5rem;
+        /* Airflow Animation */
+        .air-arrow {
+            position: absolute;
+            color: var(--blue-air);
+            filter: drop-shadow(0 0 5px var(--blue-air));
         }
 
-        .visual-box {
+        .stuck-air {
+            animation: swirl 3s infinite ease-in-out;
+        }
+
+        .flow-air {
+            animation: crossFlow 2s infinite linear;
+        }
+
+        @keyframes swirl {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(20px, 10px) rotate(10deg); }
+        }
+
+        @keyframes crossFlow {
+            from { transform: translateX(-100px); opacity: 0; }
+            50% { opacity: 1; }
+            to { transform: translateX(300px); opacity: 0; }
+        }
+
+        /* Design Elements */
+        .room-box {
             background: #1a1a1a;
-            border-radius: 16px;
-            height: 200px;
-            margin-bottom: 1rem;
-            border: 1px dashed #444;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 2px solid #333;
+            border-radius: 20px;
+            height: 240px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .window {
+            position: absolute;
+            background: #444;
+            border: 2px solid #666;
         }
 
         .nav-overlay {
@@ -127,17 +145,6 @@
             z-index: 50;
         }
         .nav-left, .nav-right { flex: 1; cursor: pointer; }
-
-        .badge-mistake {
-            background: var(--red-mistake);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: 800;
-            margin-bottom: 0.75rem;
-            display: inline-block;
-        }
     </style>
 </head>
 <body>
@@ -150,125 +157,126 @@
             <div class="nav-right" onclick="nextSlide()"></div>
         </div>
 
-        <!-- Slide 1: Hook (Improved Layout) -->
+        <!-- Slide 1: Hook -->
         <div class="slide active" id="slide-0">
-            <!-- Background Decoration -->
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#444 1px, transparent 1px); background-size: 20px 20px;"></div>
-            
-            <div class="relative z-10 text-center">
-                <span class="text-yellow-500 font-bold tracking-[0.3em] text-xs uppercase mb-4 block">House Planning Tips</span>
-                
-                <h1 class="text-4xl font-extrabold leading-tight text-white">Small House <br>Plan ki</h1>
-                
-                <div class="my-6 relative inline-block">
-                    <div class="absolute -inset-2 bg-red-600 blur-lg opacity-50 animate-pulse"></div>
-                    <h2 class="relative text-7xl font-black text-white italic">5 BIGGEST</h2>
-                </div>
-                
-                <h2 class="text-5xl font-black bg-white text-black py-2 px-4 transform -rotate-2 inline-block shadow-2xl">MISTAKES 😳</h2>
-                
-                <p class="mt-10 text-xl font-medium text-gray-400">Pura <span class="text-red-500 font-bold">Space Waste</span> ho jayega!</p>
-                
-                <div class="mt-12 flex flex-col items-center gap-2 text-gray-500">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="animate-bounce">
-                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
-                    </svg>
-                    <span class="text-[10px] uppercase tracking-widest font-bold">Swipe or Tap to start</span>
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 30px 30px;"></div>
+            <div class="text-center z-10">
+                <h1 class="text-4xl font-black leading-none mb-4">Room me <br><span class="text-blue-400">WINDOW</span> hai</h1>
+                <h2 class="text-5xl font-black bg-white text-black p-2 inline-block transform rotate-1">Phir bhi <br>Hawa nahi? 😳</h2>
+                <p class="mt-8 text-xl text-red-500 font-bold uppercase tracking-widest">Ventilation Rule Galat Hai!</p>
+                <div class="mt-12 animate-bounce">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="mx-auto text-gray-500"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Mistake 1 -->
+        <!-- Slide 2: Wrong Ventilation -->
         <div class="slide" id="slide-1">
-            <span class="badge-mistake tracking-widest">MISTAKE 01</span>
-            <h2 class="text-3xl font-black mb-4 leading-none">BIG USELESS <br><span class="text-red-500">LOBBY</span></h2>
-            <div class="mistake-card">
-                <div class="visual-box relative">
-                    <div class="w-1/2 h-1/2 bg-red-500/20 border-2 border-red-500 flex items-center justify-center font-bold text-red-500 text-xs">WASTE LOBBY</div>
-                    <div class="absolute top-2 left-2 p-2 border border-gray-700 text-[8px] text-gray-500">ROOM</div>
-                    <div class="absolute bottom-2 right-2 p-2 border border-gray-700 text-[8px] text-gray-500">ROOM</div>
+            <h2 class="text-2xl font-black text-red-500 mb-2 italic">WRONG VENTILATION</h2>
+            <p class="text-sm font-bold mb-4">Single Side Window ❌</p>
+            <div class="room-box">
+                <!-- Single Window -->
+                <div class="window w-12 h-2 top-0 left-1/2 -translate-x-1/2"></div>
+                <!-- Stuck Air Arrows -->
+                <div class="air-arrow stuck-air top-1/4 left-1/4">
+                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/></svg>
                 </div>
-                <p class="text-sm text-gray-300 leading-relaxed">Small house mein bada lobby rooms ka space kha jata hai. Layout tight ho jayega! ❌</p>
+                <div class="air-arrow stuck-air bottom-1/4 right-1/4" style="animation-delay: -1s;">
+                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/></svg>
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span class="text-red-600 font-black text-6xl opacity-20 italic">TRAPPED AIR</span>
+                </div>
             </div>
+            <p class="text-center text-xs text-gray-400">Hawa andar toh aati hai, par nikalne ka raasta nahi milta!</p>
         </div>
 
-        <!-- Slide 3: Mistake 2 -->
+        <!-- Slide 3: Problem -->
         <div class="slide" id="slide-2">
-            <span class="badge-mistake tracking-widest">MISTAKE 02</span>
-            <h2 class="text-3xl font-black mb-4 leading-none">CENTER <br><span class="text-red-500">STAIRCASE</span></h2>
-            <div class="mistake-card">
-                <div class="visual-box">
-                    <div class="grid grid-cols-3 gap-2 w-full px-6">
-                        <div class="bg-gray-800 h-12 rounded-lg"></div>
-                        <div class="bg-red-600 h-12 rounded-lg flex flex-col p-1 gap-1 border-2 border-white/20">
-                            <div class="h-1 bg-white/40 w-full rounded"></div>
-                            <div class="h-1 bg-white/40 w-full rounded"></div>
-                            <div class="h-1 bg-white/40 w-full rounded"></div>
-                        </div>
-                        <div class="bg-gray-800 h-12 rounded-lg"></div>
-                    </div>
+            <h2 class="text-3xl font-black mb-8 leading-tight">ISSE KYA <br><span class="text-red-500">HOTA HAI?</span></h2>
+            <div class="space-y-4">
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
+                    <span class="text-2xl">🥵</span>
+                    <p class="font-bold">Room Suffocated (Ghutan)</p>
                 </div>
-                <p class="text-sm text-gray-300 leading-relaxed">Seedhiyan bich mein hone se corridor space badh jata hai aur rooms chote ho jate hain.</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
+                    <span class="text-2xl">☁️</span>
+                    <p class="font-bold">No Fresh Air</p>
+                </div>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
+                    <span class="text-2xl">😫</span>
+                    <p class="font-bold">Uncomfortable Space</p>
+                </div>
             </div>
         </div>
 
-        <!-- Slide 4: Mistake 3 -->
+        <!-- Slide 4: Ventilation Rule -->
         <div class="slide" id="slide-3">
-            <span class="badge-mistake tracking-widest">MISTAKE 03</span>
-            <h2 class="text-3xl font-black mb-4 leading-none">EXTRA <br><span class="text-red-500">PASSAGE</span></h2>
-            <div class="mistake-card">
-                <div class="visual-box">
-                    <div class="w-full h-6 bg-red-600/30 relative mx-8 border-y border-red-500/50 flex items-center justify-center">
-                        <span class="text-[8px] font-bold text-red-400">LONG PASSAGE = ZERO UTILITY</span>
+            <h2 class="text-2xl font-black text-green-500 mb-2 italic">VENTILATION RULE</h2>
+            <p class="text-sm font-bold mb-4">Opposite Openings ✅</p>
+            <div class="room-box">
+                <!-- Opposite Windows -->
+                <div class="window w-12 h-2 top-0 left-1/2 -translate-x-1/2"></div>
+                <div class="window w-12 h-2 bottom-0 left-1/2 -translate-x-1/2"></div>
+                
+                <!-- Flow Air Arrows -->
+                <div class="air-arrow flow-air top-1/4 left-0"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M15 5l7 7-7 7"/></svg></div>
+                <div class="air-arrow flow-air bottom-1/4 left-0" style="animation-delay: -0.5s;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M15 5l7 7-7 7"/></svg></div>
+            </div>
+            <p class="text-center font-bold text-green-400 uppercase tracking-widest">CROSS VENTILATION</p>
+        </div>
+
+        <!-- Slide 5: Cross Ventilation -->
+        <div class="slide" id="slide-4">
+            <h2 class="text-3xl font-black mb-6">CROSS <br><span class="text-blue-400">VENTILATION</span></h2>
+            <div class="bg-blue-900/10 p-6 rounded-[32px] border border-blue-500/30 relative">
+                <div class="flex flex-col gap-6">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-bold uppercase text-blue-300">Air Intake</span>
+                        <span class="text-xs font-bold uppercase text-blue-300">Air Outlet</span>
+                    </div>
+                    <div class="h-1 w-full bg-blue-500/20 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-400 w-full animate-pulse"></div>
+                    </div>
+                    <p class="text-sm text-center text-gray-300 italic">"Fresh air aati hai aur garmi bahar nikal jaati hai."</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Wrong vs Right -->
+        <div class="slide" id="slide-5">
+            <h2 class="text-2xl font-black text-center mb-8">WRONG VS CORRECT</h2>
+            <div class="flex gap-4 h-64">
+                <div class="flex-1 bg-red-950/20 rounded-3xl p-4 flex flex-col items-center justify-between border border-red-500/50">
+                    <span class="text-3xl">❌</span>
+                    <p class="text-[10px] font-black text-center">SINGLE WINDOW<br>NO AIR FLOW</p>
+                    <div class="w-full h-20 bg-red-500/10 rounded-lg flex items-center justify-center">
+                        <div class="w-8 h-8 border-4 border-red-500/50 rounded-full animate-spin"></div>
                     </div>
                 </div>
-                <p class="text-sm text-gray-300 leading-relaxed">Passage jitna lamba hoga, ghar utna hi chota feel hoga. Try to minimize walking area.</p>
-            </div>
-        </div>
-
-        <!-- Slide 5: Mistake 4 -->
-        <div class="slide" id="slide-4">
-            <span class="badge-mistake tracking-widest">MISTAKE 04</span>
-            <h2 class="text-3xl font-black mb-4 leading-none">DOOR <br><span class="text-red-500">CLASHING</span></h2>
-            <div class="mistake-card">
-                <div class="visual-box">
-                    <svg width="100" height="100" viewBox="0 0 100 100" class="text-red-500">
-                        <path d="M20,50 Q20,20 50,20" fill="none" stroke="currentColor" stroke-width="3" />
-                        <path d="M80,50 Q80,20 50,20" fill="none" stroke="currentColor" stroke-width="3" />
-                        <circle cx="50" cy="20" r="6" fill="currentColor" class="animate-ping" />
-                        <text x="50" y="45" fill="currentColor" font-size="10" text-anchor="middle" font-weight="bold">BOOM!</text>
-                    </svg>
+                <div class="flex-1 bg-green-950/20 rounded-3xl p-4 flex flex-col items-center justify-between border border-green-500/50">
+                    <span class="text-3xl">✅</span>
+                    <p class="text-[10px] font-black text-center">OPPOSITE WINDOWS<br>SMOOTH FLOW</p>
+                    <div class="w-full h-20 bg-green-500/10 rounded-lg flex flex-col justify-center gap-2 px-2">
+                        <div class="h-1 w-full bg-green-500/50 rounded-full"></div>
+                        <div class="h-1 w-full bg-green-500/50 rounded-full"></div>
+                    </div>
                 </div>
-                <p class="text-sm text-gray-300 leading-relaxed">Galt door placement se darwaze aapas mein takrate hain. Smooth movement block hota hai.</p>
-            </div>
-        </div>
-
-        <!-- Slide 6: Mistake 5 -->
-        <div class="slide" id="slide-5">
-            <span class="badge-mistake tracking-widest">MISTAKE 05</span>
-            <h2 class="text-3xl font-black mb-4 leading-none">WRONG ROOM <br><span class="text-red-500">SIZES</span></h2>
-            <div class="mistake-card">
-                <div class="flex items-end gap-3 h-32 mb-4">
-                    <div class="w-3/5 h-full bg-red-600/10 border-2 border-red-500/50 rounded-xl flex items-center justify-center text-[10px] font-bold">TOO BIG HALL</div>
-                    <div class="w-1/5 h-1/2 bg-red-600/10 border-2 border-red-500/50 rounded-xl flex items-center justify-center text-[8px] text-center">TINY BDRM</div>
-                </div>
-                <p class="text-sm text-gray-300 leading-relaxed">Balance zaroori hai! Ek room bahut bada aur dusra bahut chota plan kharab kar deta hai.</p>
             </div>
         </div>
 
         <!-- Slide 7: Ending CTA -->
         <div class="slide" id="slide-6">
             <div class="text-center">
-                <div class="w-16 h-1 bg-yellow-500 mx-auto mb-6"></div>
-                <h2 class="text-4xl font-black mb-4">SMART <br>PLANNING</h2>
-                <p class="text-gray-400 mb-10 text-sm">Har inch ka sahi use karein, <br>Civilian Himmu ke saath!</p>
+                <h2 class="text-3xl font-black mb-4">PROPER VENTILATION = <br><span class="text-blue-400">HEALTHY HOUSE</span></h2>
+                <p class="text-gray-400 text-sm mb-12">Architecture ke aise practical <br>tips ke liye follow karein!</p>
                 
-                <div class="bg-white/5 border border-white/10 p-8 rounded-[32px] mb-8">
-                    <p class="text-[10px] uppercase tracking-[0.4em] text-yellow-500 mb-2 font-bold">Channel</p>
+                <div class="bg-white/5 border-2 border-blue-500/20 p-8 rounded-[40px] shadow-2xl">
+                    <p class="text-[10px] uppercase tracking-[0.4em] text-blue-500 font-bold mb-2">Practical Expert</p>
                     <h3 class="text-3xl font-black text-white">Civilian Himmu</h3>
                 </div>
 
-                <button class="w-full py-4 bg-white text-black font-black rounded-2xl uppercase tracking-widest text-xs shadow-[0_10px_30px_rgba(255,255,255,0.2)]">Follow For More Tips</button>
+                <button class="w-full mt-10 py-4 bg-blue-600 text-white font-black rounded-2xl uppercase tracking-widest shadow-[0_0_20px_rgba(59,130,246,0.5)]">Subscribe For More</button>
             </div>
         </div>
     </div>
@@ -276,7 +284,7 @@
     <script>
         let currentSlide = 0;
         const totalSlides = 7;
-        const slideDuration = 4500;
+        const slideDuration = 5000;
         let slideTimer;
 
         const progressContainer = document.getElementById('progress-dots');
@@ -293,8 +301,7 @@
         function showSlide(index) {
             const slides = document.querySelectorAll('.slide');
             slides.forEach((s, i) => {
-                s.classList.remove('active', 'prev');
-                if (i < index) s.classList.add('prev');
+                s.classList.remove('active');
             });
 
             document.querySelectorAll('.progress-fill').forEach((f, i) => {
