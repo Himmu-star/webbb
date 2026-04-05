@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventilation Rule - Civilian Himmu</title>
+    <title>Column Placement Rules - Civilian Himmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --red-mistake: #ef4444;
             --green-correct: #22c55e;
-            --blue-air: #3b82f6;
-            --bg-dark: #121212;
+            --blue-grid: #3b82f6;
+            --bg-dark: #111827;
         }
 
         body {
@@ -33,7 +33,7 @@
             max-width: 56.25vh;
             background-color: var(--bg-dark);
             position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+            box-shadow: 0 0 50px rgba(0,0,0,0.9);
             overflow: hidden;
         }
 
@@ -46,14 +46,14 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-            transform: translateY(20px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1.05);
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
-            transform: translateY(0);
+            transform: scale(1);
         }
 
         h1, h2 {
@@ -82,7 +82,7 @@
 
         .progress-fill {
             height: 100%;
-            background: white;
+            background: var(--blue-grid);
             width: 0%;
         }
 
@@ -95,47 +95,31 @@
             to { width: 100%; }
         }
 
-        /* Airflow Animation */
-        .air-arrow {
+        /* Structural Grid Elements */
+        .grid-bg {
             position: absolute;
-            color: var(--blue-air);
-            filter: drop-shadow(0 0 5px var(--blue-air));
+            inset: 0;
+            background-image: linear-gradient(var(--blue-grid) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--blue-grid) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.05;
         }
 
-        .stuck-air {
-            animation: swirl 3s infinite ease-in-out;
-        }
-
-        .flow-air {
-            animation: crossFlow 2s infinite linear;
-        }
-
-        @keyframes swirl {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            50% { transform: translate(20px, 10px) rotate(10deg); }
-        }
-
-        @keyframes crossFlow {
-            from { transform: translateX(-100px); opacity: 0; }
-            50% { opacity: 1; }
-            to { transform: translateX(300px); opacity: 0; }
-        }
-
-        /* Design Elements */
-        .room-box {
-            background: #1a1a1a;
-            border: 2px solid #333;
-            border-radius: 20px;
-            height: 240px;
-            margin: 20px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .window {
+        .column-node {
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 2px;
             position: absolute;
-            background: #444;
-            border: 2px solid #666;
+        }
+
+        .column-red { background: var(--red-mistake); box-shadow: 0 0 10px var(--red-mistake); }
+        .column-green { background: var(--green-correct); box-shadow: 0 0 10px var(--green-correct); }
+
+        .beam-line {
+            position: absolute;
+            background: rgba(255,255,255,0.2);
+            height: 2px;
         }
 
         .nav-overlay {
@@ -145,11 +129,23 @@
             z-index: 50;
         }
         .nav-left, .nav-right { flex: 1; cursor: pointer; }
+
+        .mistake-badge {
+            background: var(--red-mistake);
+            color: white;
+            padding: 2px 12px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
 
     <div class="shorts-container" id="app">
+        <div class="grid-bg"></div>
         <div class="progress-container" id="progress-dots"></div>
 
         <div class="nav-overlay">
@@ -159,107 +155,125 @@
 
         <!-- Slide 1: Hook -->
         <div class="slide active" id="slide-0">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#3b82f6 1px, transparent 1px); background-size: 30px 30px;"></div>
             <div class="text-center z-10">
-                <h1 class="text-4xl font-black leading-none mb-4">Room me <br><span class="text-blue-400">WINDOW</span> hai</h1>
-                <h2 class="text-5xl font-black bg-white text-black p-2 inline-block transform rotate-1">Phir bhi <br>Hawa nahi? 😳</h2>
-                <p class="mt-8 text-xl text-red-500 font-bold uppercase tracking-widest">Ventilation Rule Galat Hai!</p>
-                <div class="mt-12 animate-bounce">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="mx-auto text-gray-500"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+                <div class="mb-6 inline-block bg-blue-600/20 p-4 rounded-full border border-blue-500/30">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-400">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/>
+                    </svg>
+                </div>
+                <h1 class="text-4xl font-black leading-tight">COLUMN <br>PLACEMENT</h1>
+                <h2 class="text-6xl font-black bg-white text-black p-2 mt-2 transform -rotate-1">BASIC RULE 😳</h2>
+                <p class="mt-8 text-lg font-bold text-red-500 uppercase tracking-widest animate-pulse">Galat placement = planning fail</p>
+                <div class="mt-12 opacity-50">
+                    <span class="text-xs font-bold uppercase tracking-widest">Tap to see rule</span>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 2: Wrong Ventilation -->
+        <!-- Slide 2: Wrong Placement -->
         <div class="slide" id="slide-1">
-            <h2 class="text-2xl font-black text-red-500 mb-2 italic">WRONG VENTILATION</h2>
-            <p class="text-sm font-bold mb-4">Single Side Window ❌</p>
-            <div class="room-box">
-                <!-- Single Window -->
-                <div class="window w-12 h-2 top-0 left-1/2 -translate-x-1/2"></div>
-                <!-- Stuck Air Arrows -->
-                <div class="air-arrow stuck-air top-1/4 left-1/4">
-                    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/></svg>
-                </div>
-                <div class="air-arrow stuck-air bottom-1/4 right-1/4" style="animation-delay: -1s;">
-                    <svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/></svg>
-                </div>
+            <span class="mistake-badge uppercase">Wrong Placement</span>
+            <h2 class="text-3xl font-black mb-4">RANDOM <br><span class="text-red-500">COLUMNS</span></h2>
+            <div class="relative h-64 bg-black/40 rounded-3xl border border-white/10 overflow-hidden">
+                <!-- Random Columns -->
+                <div class="column-node column-red" style="top: 20%; left: 15%;"></div>
+                <div class="column-node column-red" style="top: 40%; left: 60%;"></div>
+                <div class="column-node column-red" style="top: 80%; left: 30%;"></div>
+                <div class="column-node column-red" style="top: 70%; left: 75%;"></div>
+                
                 <div class="absolute inset-0 flex items-center justify-center">
-                    <span class="text-red-600 font-black text-6xl opacity-20 italic">TRAPPED AIR</span>
+                    <span class="text-red-600 font-black text-6xl opacity-10 italic">CHAOS</span>
                 </div>
             </div>
-            <p class="text-center text-xs text-gray-400">Hawa andar toh aati hai, par nikalne ka raasta nahi milta!</p>
+            <p class="mt-6 text-sm text-gray-400 italic">"Beam layout complicated ho jata hai!"</p>
         </div>
 
         <!-- Slide 3: Problem -->
         <div class="slide" id="slide-2">
-            <h2 class="text-3xl font-black mb-8 leading-tight">ISSE KYA <br><span class="text-red-500">HOTA HAI?</span></h2>
+            <h2 class="text-3xl font-black mb-8 leading-tight italic">KYA PROBLEM <br><span class="text-red-500">HOTI HAI?</span></h2>
             <div class="space-y-4">
-                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
-                    <span class="text-2xl">🥵</span>
-                    <p class="font-bold">Room Suffocated (Ghutan)</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border-l-4 border-red-600">
+                    <span class="text-xl">🏗️</span>
+                    <p class="text-sm font-bold">Beam alignment difficult</p>
                 </div>
-                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
-                    <span class="text-2xl">☁️</span>
-                    <p class="font-bold">No Fresh Air</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border-l-4 border-red-600">
+                    <span class="text-xl">⚖️</span>
+                    <p class="text-sm font-bold">Load transfer uneven</p>
                 </div>
-                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border border-red-500/30">
-                    <span class="text-2xl">😫</span>
-                    <p class="font-bold">Uncomfortable Space</p>
+                <div class="flex items-center gap-4 bg-red-950/20 p-4 rounded-2xl border-l-4 border-red-600">
+                    <span class="text-xl">🛠️</span>
+                    <p class="text-sm font-bold">Planning complicated</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 4: Ventilation Rule -->
+        <!-- Slide 4: Basic Rule -->
         <div class="slide" id="slide-3">
-            <h2 class="text-2xl font-black text-green-500 mb-2 italic">VENTILATION RULE</h2>
-            <p class="text-sm font-bold mb-4">Opposite Openings ✅</p>
-            <div class="room-box">
-                <!-- Opposite Windows -->
-                <div class="window w-12 h-2 top-0 left-1/2 -translate-x-1/2"></div>
-                <div class="window w-12 h-2 bottom-0 left-1/2 -translate-x-1/2"></div>
+            <span class="bg-blue-600 text-white px-3 py-1 rounded text-[10px] font-black uppercase mb-2 inline-block">The Rule</span>
+            <h2 class="text-3xl font-black mb-4">COLUMNS <br><span class="text-blue-400">IN GRID</span></h2>
+            <div class="relative h-64 bg-black/40 rounded-3xl border-2 border-blue-500/30">
+                <!-- Grid Lines -->
+                <div class="absolute inset-0 flex flex-col justify-around py-10">
+                    <div class="h-[1px] w-full bg-blue-500/20"></div>
+                    <div class="h-[1px] w-full bg-blue-500/20"></div>
+                </div>
+                <div class="absolute inset-0 flex justify-around px-10">
+                    <div class="w-[1px] h-full bg-blue-500/20"></div>
+                    <div class="w-[1px] h-full bg-blue-500/20"></div>
+                </div>
                 
-                <!-- Flow Air Arrows -->
-                <div class="air-arrow flow-air top-1/4 left-0"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M15 5l7 7-7 7"/></svg></div>
-                <div class="air-arrow flow-air bottom-1/4 left-0" style="animation-delay: -0.5s;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12h20M15 5l7 7-7 7"/></svg></div>
+                <!-- Grid Columns -->
+                <div class="column-node column-green" style="top: 25%; left: 30%;"></div>
+                <div class="column-node column-green" style="top: 25%; left: 65%;"></div>
+                <div class="column-node column-green" style="top: 70%; left: 30%;"></div>
+                <div class="column-node column-green" style="top: 70%; left: 65%;"></div>
             </div>
-            <p class="text-center font-bold text-green-400 uppercase tracking-widest">CROSS VENTILATION</p>
+            <p class="mt-4 text-center font-bold text-blue-400 uppercase tracking-widest text-xs">Always Aligned in Straight Lines</p>
         </div>
 
-        <!-- Slide 5: Cross Ventilation -->
+        <!-- Slide 5: Proper Alignment -->
         <div class="slide" id="slide-4">
-            <h2 class="text-3xl font-black mb-6">CROSS <br><span class="text-blue-400">VENTILATION</span></h2>
-            <div class="bg-blue-900/10 p-6 rounded-[32px] border border-blue-500/30 relative">
-                <div class="flex flex-col gap-6">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-bold uppercase text-blue-300">Air Intake</span>
-                        <span class="text-xs font-bold uppercase text-blue-300">Air Outlet</span>
-                    </div>
-                    <div class="h-1 w-full bg-blue-500/20 rounded-full overflow-hidden">
-                        <div class="h-full bg-blue-400 w-full animate-pulse"></div>
-                    </div>
-                    <p class="text-sm text-center text-gray-300 italic">"Fresh air aati hai aur garmi bahar nikal jaati hai."</p>
+            <h2 class="text-3xl font-black mb-6">PROPER <br><span class="text-green-500">ALIGNMENT</span></h2>
+            <div class="bg-white/5 p-6 rounded-[40px] border border-white/10">
+                <div class="relative h-40">
+                    <!-- Straight Beam Lines -->
+                    <div class="absolute top-1/4 left-0 w-full h-1 bg-green-500/30"></div>
+                    <div class="absolute top-3/4 left-0 w-full h-1 bg-green-500/30"></div>
+                    <!-- Columns -->
+                    <div class="column-node column-green" style="top: 25%; left: 20%;"></div>
+                    <div class="column-node column-green" style="top: 25%; left: 50%;"></div>
+                    <div class="column-node column-green" style="top: 25%; left: 80%;"></div>
+                    <div class="column-node column-green" style="top: 75%; left: 20%;"></div>
+                    <div class="column-node column-green" style="top: 75%; left: 50%;"></div>
+                    <div class="column-node column-green" style="top: 75%; left: 80%;"></div>
+                </div>
+                <div class="mt-4 text-center">
+                    <p class="text-xs text-gray-400">Beams ek seedh mein aayenge, structure strong banega!</p>
                 </div>
             </div>
         </div>
 
-        <!-- Slide 6: Wrong vs Right -->
+        <!-- Slide 6: Comparison -->
         <div class="slide" id="slide-5">
-            <h2 class="text-2xl font-black text-center mb-8">WRONG VS CORRECT</h2>
+            <h2 class="text-2xl font-black text-center mb-8 italic">WRONG VS CORRECT</h2>
             <div class="flex gap-4 h-64">
-                <div class="flex-1 bg-red-950/20 rounded-3xl p-4 flex flex-col items-center justify-between border border-red-500/50">
+                <div class="flex-1 bg-red-950/10 rounded-3xl p-4 flex flex-col items-center justify-between border border-red-500/30">
                     <span class="text-3xl">❌</span>
-                    <p class="text-[10px] font-black text-center">SINGLE WINDOW<br>NO AIR FLOW</p>
-                    <div class="w-full h-20 bg-red-500/10 rounded-lg flex items-center justify-center">
-                        <div class="w-8 h-8 border-4 border-red-500/50 rounded-full animate-spin"></div>
+                    <p class="text-[9px] font-black text-center uppercase tracking-tighter">RANDOM<br>COMPLICATED</p>
+                    <div class="w-full h-20 relative">
+                         <div class="w-2 h-2 bg-red-500 absolute top-2 left-4"></div>
+                         <div class="w-2 h-2 bg-red-500 absolute top-10 left-10"></div>
+                         <div class="w-2 h-2 bg-red-500 absolute top-4 left-14"></div>
                     </div>
                 </div>
-                <div class="flex-1 bg-green-950/20 rounded-3xl p-4 flex flex-col items-center justify-between border border-green-500/50">
+                <div class="flex-1 bg-green-950/10 rounded-3xl p-4 flex flex-col items-center justify-between border border-green-500/30">
                     <span class="text-3xl">✅</span>
-                    <p class="text-[10px] font-black text-center">OPPOSITE WINDOWS<br>SMOOTH FLOW</p>
-                    <div class="w-full h-20 bg-green-500/10 rounded-lg flex flex-col justify-center gap-2 px-2">
-                        <div class="h-1 w-full bg-green-500/50 rounded-full"></div>
-                        <div class="h-1 w-full bg-green-500/50 rounded-full"></div>
+                    <p class="text-[9px] font-black text-center uppercase tracking-tighter">GRID SYSTEM<br>PROPER LOAD</p>
+                    <div class="w-full h-20 relative opacity-40">
+                         <div class="w-full h-[1px] bg-white top-4 absolute"></div>
+                         <div class="w-full h-[1px] bg-white top-14 absolute"></div>
+                         <div class="w-2 h-2 bg-green-500 absolute top-4 left-4"></div>
+                         <div class="w-2 h-2 bg-green-500 absolute top-4 left-12"></div>
                     </div>
                 </div>
             </div>
@@ -268,15 +282,18 @@
         <!-- Slide 7: Ending CTA -->
         <div class="slide" id="slide-6">
             <div class="text-center">
-                <h2 class="text-3xl font-black mb-4">PROPER VENTILATION = <br><span class="text-blue-400">HEALTHY HOUSE</span></h2>
-                <p class="text-gray-400 text-sm mb-12">Architecture ke aise practical <br>tips ke liye follow karein!</p>
+                <h2 class="text-3xl font-black mb-4">COLUMN GRID <br><span class="text-blue-400">FOLLOW KARO</span></h2>
+                <p class="text-gray-400 text-sm mb-12">Structure ko majboot banayein, <br>Civilian Himmu ke saath!</p>
                 
-                <div class="bg-white/5 border-2 border-blue-500/20 p-8 rounded-[40px] shadow-2xl">
-                    <p class="text-[10px] uppercase tracking-[0.4em] text-blue-500 font-bold mb-2">Practical Expert</p>
+                <div class="bg-gradient-to-t from-black to-blue-900/20 border border-blue-500/30 p-8 rounded-[48px] relative overflow-hidden">
+                    <div class="absolute inset-0 opacity-10 pointer-events-none">
+                        <svg width="100%" height="100%"><line x1="0" y1="0" x2="100%" y2="100%" stroke="white" stroke-width="1"/></svg>
+                    </div>
+                    <p class="text-[10px] uppercase tracking-[0.5em] text-blue-400 font-bold mb-2">Practical Expert</p>
                     <h3 class="text-3xl font-black text-white">Civilian Himmu</h3>
                 </div>
 
-                <button class="w-full mt-10 py-4 bg-blue-600 text-white font-black rounded-2xl uppercase tracking-widest shadow-[0_0_20px_rgba(59,130,246,0.5)]">Subscribe For More</button>
+                <button class="w-full mt-12 py-4 bg-white text-black font-black rounded-2xl uppercase tracking-widest text-xs shadow-[0_0_30px_rgba(59,130,246,0.3)]">Follow For More Tips</button>
             </div>
         </div>
     </div>
@@ -287,6 +304,7 @@
         const slideDuration = 5000;
         let slideTimer;
 
+        // Initialize Progress Bars
         const progressContainer = document.getElementById('progress-dots');
         for (let i = 0; i < totalSlides; i++) {
             const bar = document.createElement('div');
@@ -300,9 +318,7 @@
 
         function showSlide(index) {
             const slides = document.querySelectorAll('.slide');
-            slides.forEach((s, i) => {
-                s.classList.remove('active');
-            });
+            slides.forEach(s => s.classList.remove('active'));
 
             document.querySelectorAll('.progress-fill').forEach((f, i) => {
                 f.classList.remove('active-fill');
@@ -335,6 +351,7 @@
 
         window.onload = () => showSlide(0);
 
+        // Touch Navigation
         let touchstartX = 0;
         const slider = document.getElementById('app');
         slider.addEventListener('touchstart', e => touchstartX = e.changedTouches[0].screenX);
