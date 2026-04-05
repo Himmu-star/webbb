@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kitchen Size Guide - Civilian Himmu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Toilet Size Guide - Civilian Himmu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
             --primary-red: #ff4d4d;
             --primary-green: #2ecc71;
+            --primary-blue: #3498db;
             --primary-yellow: #f1c40f;
             --bg-dark: #1a1a1a;
-            --card-bg: #2d2d2d;
         }
 
         body {
@@ -37,8 +37,9 @@
             background: var(--bg-dark);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
             border-radius: 20px;
+            border: 1px solid #333;
         }
 
         .slide {
@@ -46,11 +47,11 @@
             inset: 0;
             display: flex;
             flex-direction: column;
-            padding: 40px 20px;
+            padding: 40px 24px;
             opacity: 0;
             pointer-events: none;
             transition: all 0.5s ease-in-out;
-            background: radial-gradient(circle at center, #333 0%, #1a1a1a 100%);
+            background: radial-gradient(circle at top right, #2a2a2a 0%, #111 100%);
         }
 
         .slide.active {
@@ -60,39 +61,30 @@
 
         h1 { font-family: 'Montserrat', sans-serif; font-weight: 800; text-transform: uppercase; line-height: 1.1; }
         
-        /* Specific Animations */
+        /* Animation Classes */
         .animate-zoom-in.active { animation: zoomIn 0.6s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .animate-slide-right.active { animation: slideRight 0.6s forwards ease-out; }
-        .animate-shake.active { animation: shake 0.5s infinite; }
+        .animate-slide-right.active { animation: slideRight 0.5s forwards ease-out; }
+        .animate-shake.active { animation: shake 0.4s infinite; }
         .animate-pop.active { animation: pop 0.5s forwards cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        .animate-fade.active { animation: fadeIn 1s forwards ease-in; }
+        .animate-fade.active { animation: fadeIn 0.8s forwards ease-in; }
 
-        @keyframes zoomIn { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes zoomIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes slideRight { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         @keyframes shake { 
             0%, 100% { transform: translateX(0); } 
-            25% { transform: translateX(-5px) rotate(-1deg); } 
-            75% { transform: translateX(5px) rotate(1deg); } 
+            25% { transform: translateX(-6px); } 
+            75% { transform: translateX(6px); } 
         }
-        @keyframes pop { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        @keyframes pop { from { transform: scale(0.2); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* Visual Assets */
-        .blueprint-box {
-            border: 2px dashed #555;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            position: relative;
-            margin-top: 20px;
+        /* Diagram Styling */
+        .blueprint-area {
+            border: 2px dashed #444;
+            background: rgba(255,255,255,0.02);
+            border-radius: 16px;
+            margin-top: 30px;
             flex-grow: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .kitchen-rect {
-            background: rgba(46, 204, 113, 0.2);
-            border: 2px solid var(--primary-green);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -100,40 +92,57 @@
             position: relative;
         }
 
-        .dimension-line {
-            position: absolute;
-            background: white;
-            font-size: 10px;
-            padding: 2px 5px;
+        .toilet-shape {
+            border: 3px solid white;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s;
         }
+
+        /* SVG Icons for WC and Shower */
+        .wc-icon { width: 30px; height: 40px; background: #666; border-radius: 5px 5px 15px 15px; position: relative; }
+        .wc-icon::after { content: ''; position: absolute; top: -5px; width: 34px; height: 10px; background: #888; left: -2px; border-radius: 2px; }
+        
+        .shower-head { width: 20px; height: 20px; border: 2px solid #3498db; border-radius: 50%; position: relative; }
+        .shower-head::after { content: ''; position: absolute; width: 1px; height: 15px; background: #3498db; top: 100%; left: 50%; box-shadow: 5px 0 #3498db, -5px 0 #3498db; }
 
         .controls {
             position: absolute;
-            bottom: 20px;
+            bottom: 25px;
             left: 0;
             right: 0;
             display: flex;
             justify-content: space-between;
-            padding: 0 30px;
+            align-items: center;
+            padding: 0 40px;
             z-index: 100;
         }
 
-        .btn {
-            background: rgba(255,255,255,0.1);
+        .nav-btn {
+            background: rgba(255,255,255,0.15);
             border: none;
             color: white;
-            padding: 10px 15px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
             cursor: pointer;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
         }
 
         .badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
-            margin-bottom: 10px;
+            padding: 5px 14px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
             display: inline-block;
         }
     </style>
@@ -143,158 +152,157 @@
     <div class="phone-canvas">
         <!-- SLIDE 1: HOOK -->
         <div id="slide-1" class="slide active animate-zoom-in">
-            <div class="mt-20">
-                <h1 class="text-4xl text-white">Kitchen <span class="text-red-500">6x6</span> <br>bana rahe ho? 😳</h1>
-                <p class="text-xl mt-4 text-gray-300">Baad me pachhtana padega!</p>
+            <div class="mt-16">
+                <h1 class="text-4xl">Toilet <span class="text-red-500">3x3</span> <br>bana diya? 😳</h1>
+                <p class="text-xl mt-4 text-gray-400 font-medium">Use karna bhi mushkil ho jayega!</p>
             </div>
             
-            <div class="blueprint-box mt-10 overflow-hidden">
-                <div class="absolute inset-0 bg-red-900/20 flex items-center justify-center">
-                   <div class="text-8xl font-bold text-red-600 opacity-40">❌</div>
+            <div class="blueprint-area overflow-hidden">
+                <div class="absolute inset-0 bg-red-600/10 flex items-center justify-center">
+                    <div class="text-9xl font-bold text-red-600 opacity-20">❌</div>
                 </div>
-                <div class="w-32 h-32 border-4 border-red-500 flex flex-col items-center justify-center p-2 relative">
-                    <span class="text-2xl font-bold">6x6</span>
-                    <div class="absolute -top-6 left-0 right-0 text-center text-xs text-red-400">CONGESTED</div>
-                    <div class="w-20 h-4 bg-gray-600 rounded mt-2"></div>
+                <div class="toilet-shape w-32 h-32 border-red-500 bg-red-500/10">
+                    <div class="wc-icon scale-75 opacity-50"></div>
+                    <div class="absolute -bottom-8 text-red-500 font-bold">3x3 FEET</div>
                 </div>
+                <div class="mt-20 text-red-400 text-xs font-bold animate-pulse">WARNING: TOO SMALL</div>
             </div>
             
-            <div class="mt-auto mb-10">
-                <p class="text-sm font-bold text-gray-500 tracking-widest uppercase">Professional Civil Guide</p>
+            <div class="mt-auto mb-12 text-center">
+                <p class="text-xs font-bold text-gray-500 tracking-[0.3em] uppercase">Professional Design Series</p>
             </div>
         </div>
 
         <!-- SLIDE 2: MINIMUM -->
         <div id="slide-2" class="slide animate-slide-right">
             <span class="badge bg-green-600">MINIMUM SIZE</span>
-            <h1 class="text-3xl">8x6 FEET</h1>
-            <p class="text-sm text-gray-400">Basic platform + movement possible</p>
+            <h1 class="text-3xl">4x4 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">WC + Basic movement possible</p>
             
-            <div class="blueprint-box">
-                <div class="kitchen-rect w-48 h-36" style="background: rgba(46,204,113,0.1); border-color: var(--primary-green);">
-                    <!-- Layout Elements -->
-                    <div class="absolute top-0 left-0 w-full h-8 bg-gray-700/50 flex justify-around items-center">
-                        <div class="w-6 h-6 border rounded-full"></div>
-                        <div class="w-8 h-4 border"></div>
+            <div class="blueprint-area">
+                <div class="toilet-shape w-40 h-40 border-green-500 bg-green-500/5">
+                    <div class="wc-icon"></div>
+                    <!-- Dimension Arrows -->
+                    <div class="absolute -left-8 h-full border-l border-green-500 flex items-center justify-center">
+                        <span class="bg-dark px-1 text-[10px] rotate-90">4'</span>
                     </div>
-                    <span class="font-bold">8x6</span>
+                    <div class="absolute -top-8 w-full border-t border-green-500 flex items-center justify-center">
+                        <span class="bg-dark px-1 text-[10px]">4'</span>
+                    </div>
                 </div>
-                <div class="absolute bottom-4 text-xs text-green-400">STRAIGHT LAYOUT</div>
+                <div class="mt-12 text-green-400 text-sm font-semibold">BASIC ATTACHED</div>
             </div>
         </div>
 
         <!-- SLIDE 3: PRACTICAL -->
         <div id="slide-3" class="slide animate-slide-right">
-            <span class="badge bg-blue-600">PRACTICAL SIZE</span>
-            <h1 class="text-3xl">8x10 FEET</h1>
-            <p class="text-sm text-gray-400">Fridge + Sink + Stove comfortable</p>
+            <span class="badge bg-blue-600">COMBINED SIZE</span>
+            <h1 class="text-3xl">4x7 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">WC + Shower space comfortable</p>
             
-            <div class="blueprint-box">
-                <div class="kitchen-rect w-40 h-56" style="background: rgba(52, 152, 219, 0.1); border-color: #3498db;">
-                    <div class="absolute top-0 right-0 w-8 h-full bg-gray-700/50"></div>
-                    <div class="absolute bottom-4 left-4 w-10 h-10 border-2 border-dashed border-blue-400 flex items-center justify-center text-[8px]">FRIDGE</div>
-                    <span class="font-bold">8x10</span>
+            <div class="blueprint-area">
+                <div class="toilet-shape w-36 h-60 border-blue-500 bg-blue-500/5 flex-col justify-between py-6">
+                    <div class="shower-head"></div>
+                    <div class="wc-icon"></div>
+                    <div class="absolute left-0 w-full h-px bg-blue-500/30 top-1/2"></div>
                 </div>
-                <div class="absolute bottom-4 text-xs text-blue-400">GALLERY LAYOUT</div>
+                <div class="mt-8 text-blue-400 text-sm font-semibold">IDEAL FOR FLATS</div>
             </div>
         </div>
 
-        <!-- SLIDE 4: IDEAL -->
+        <!-- SLIDE 4: COMFORTABLE -->
         <div id="slide-4" class="slide animate-slide-right">
-            <span class="badge bg-yellow-600">IDEAL MODULAR</span>
-            <h1 class="text-3xl text-yellow-500">10x10 FEET</h1>
-            <p class="text-sm text-gray-400">L-Shape layout perfect spacing</p>
+            <span class="badge bg-yellow-600">PREMIUM SIZE</span>
+            <h1 class="text-3xl text-yellow-500">5x8 FEET</h1>
+            <p class="text-sm text-gray-400 mt-2">Proper movement + Easy use</p>
             
-            <div class="blueprint-box">
-                <div class="kitchen-rect w-52 h-52" style="background: rgba(241, 196, 15, 0.1); border-color: var(--primary-yellow);">
-                    <!-- L Shape Platform -->
-                    <div class="absolute top-0 left-0 w-full h-10 bg-gray-700/80"></div>
-                    <div class="absolute top-0 left-0 w-10 h-full bg-gray-700/80"></div>
-                    <span class="font-bold text-yellow-500">10x10</span>
+            <div class="blueprint-area">
+                <div class="toilet-shape w-48 h-64 border-yellow-500 bg-yellow-500/5">
+                    <div class="absolute top-4 left-4 shower-head"></div>
+                    <div class="wc-icon mt-10"></div>
+                    <div class="absolute bottom-4 w-12 h-8 border-2 border-yellow-500/40 rounded-sm text-[8px] flex items-center justify-center">BASIN</div>
                 </div>
-                <div class="absolute bottom-4 text-xs text-yellow-500">PREMIUM L-SHAPE</div>
+                <div class="mt-8 text-yellow-500 text-sm font-semibold">LUXURY SPACING</div>
             </div>
         </div>
 
         <!-- SLIDE 5: PROBLEMS -->
         <div id="slide-5" class="slide animate-shake">
-            <span class="badge bg-red-600">BIG MISTAKE</span>
-            <h1 class="text-3xl">6x6 PROBLEMS</h1>
+            <span class="badge bg-red-600">HUGE ERROR</span>
+            <h1 class="text-3xl">3x3 PROBLEMS</h1>
             
-            <ul class="mt-8 space-y-6">
-                <li class="flex items-center gap-4 bg-red-500/10 p-4 rounded-lg border-l-4 border-red-500">
-                    <span class="text-2xl">📦</span>
+            <div class="mt-10 space-y-5">
+                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
+                    <span class="text-2xl">🚪</span>
                     <div>
-                        <p class="font-bold">No Storage</p>
-                        <p class="text-xs text-gray-400">Cabinets ke liye jagah nahi milti</p>
+                        <p class="font-bold text-white">Door Issue</p>
+                        <p class="text-xs text-gray-400">Door seat se takrayega</p>
                     </div>
-                </li>
-                <li class="flex items-center gap-4 bg-red-500/10 p-4 rounded-lg border-l-4 border-red-500">
-                    <span class="text-2xl">🏃</span>
+                </div>
+                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
+                    <span class="text-2xl">📏</span>
                     <div>
-                        <p class="font-bold">Tight Movement</p>
-                        <p class="text-xs text-gray-400">Ek se zyada log nahi khade ho sakte</p>
+                        <p class="font-bold text-white">No Movement</p>
+                        <p class="text-xs text-gray-400">Turning space bilkul nahi milega</p>
                     </div>
-                </li>
-                <li class="flex items-center gap-4 bg-red-500/10 p-4 rounded-lg border-l-4 border-red-500">
-                    <span class="text-2xl">🔥</span>
+                </div>
+                <div class="bg-red-500/10 p-5 rounded-xl border-l-4 border-red-500 flex items-start gap-4">
+                    <span class="text-2xl">😫</span>
                     <div>
-                        <p class="font-bold">Uncomfortable</p>
-                        <p class="text-xs text-gray-400">Garmi aur ghutan mehsoos hogi</p>
+                        <p class="font-bold text-white">Uncomfortable</p>
+                        <p class="text-xs text-gray-400">Rozana use me dikkat hogi</p>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
 
         <!-- SLIDE 6: COMPARISON -->
         <div id="slide-6" class="slide animate-pop">
-            <h1 class="text-2xl mb-8 text-center">SIZE COMPARISON</h1>
+            <h1 class="text-2xl mb-10 text-center">SIZE COMPARISON</h1>
             
             <div class="grid grid-cols-2 gap-4">
-                <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center justify-center border-b-4 border-red-500">
-                    <span class="text-xl font-bold">6x6</span>
-                    <span class="text-red-500 text-2xl font-bold">❌</span>
+                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-red-500">
+                    <span class="text-lg font-bold text-gray-400">3x3</span>
+                    <span class="text-red-500 text-3xl mt-2 font-bold">❌</span>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center justify-center border-b-4 border-green-500">
-                    <span class="text-xl font-bold">8x6</span>
-                    <span class="text-green-500 text-2xl font-bold">✅</span>
+                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-green-500">
+                    <span class="text-lg font-bold text-gray-400">4x4</span>
+                    <span class="text-green-500 text-3xl mt-2 font-bold">✅</span>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center justify-center border-b-4 border-blue-500">
-                    <span class="text-xl font-bold">8x10</span>
-                    <span class="text-blue-500 text-2xl font-bold">⭐</span>
+                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-blue-500">
+                    <span class="text-lg font-bold text-gray-400">4x7</span>
+                    <span class="text-blue-500 text-3xl mt-2 font-bold">⭐</span>
                 </div>
-                <div class="bg-gray-800 p-4 rounded-xl flex flex-col items-center justify-center border-b-4 border-yellow-500">
-                    <span class="text-xl font-bold">10x10</span>
-                    <span class="text-yellow-500 text-2xl font-bold">👑</span>
+                <div class="bg-gray-800/50 p-6 rounded-2xl flex flex-col items-center border-b-4 border-yellow-500">
+                    <span class="text-lg font-bold text-gray-400">5x8</span>
+                    <span class="text-yellow-500 text-3xl mt-2 font-bold">👑</span>
                 </div>
             </div>
             
-            <div class="mt-10 text-center text-sm text-gray-400 italic">
-                Choose wisely before construction!
+            <div class="mt-12 text-center text-xs text-gray-500 font-medium tracking-wide">
+                *Dimensions are in Feet (Standard)
             </div>
         </div>
 
         <!-- SLIDE 7: CTA -->
         <div id="slide-7" class="slide animate-fade">
             <div class="flex flex-col items-center justify-center h-full text-center">
-                <div class="w-20 h-20 bg-yellow-500 rounded-full flex items-center justify-center text-4xl mb-6">💡</div>
-                <h1 class="text-3xl mb-4">Kitchen size galat = Daily problem</h1>
-                <p class="text-lg text-gray-300 px-4 mb-8">Planning sahi = Comfortable cooking</p>
+                <div class="w-24 h-24 bg-gradient-to-tr from-yellow-600 to-yellow-400 rounded-full flex items-center justify-center text-5xl mb-8 shadow-lg shadow-yellow-500/20">🚽</div>
+                <h1 class="text-3xl mb-6">Toilet Chhota = <br>Daily Problem</h1>
+                <p class="text-lg text-gray-300 px-6 mb-12">Planning sahi = Comfortable use</p>
                 
-                <div class="bg-white/5 p-6 rounded-2xl w-full">
-                    <p class="text-sm text-gray-400 mb-2">Follow for practical house planning tips</p>
-                    <p class="text-xl font-bold text-yellow-500">Civilian Himmu</p>
+                <div class="bg-white/5 p-8 rounded-3xl w-full border border-white/10">
+                    <p class="text-xs text-gray-500 mb-2 uppercase tracking-widest">Subscribe for more</p>
+                    <p class="text-2xl font-bold text-yellow-500">Civilian Himmu</p>
                 </div>
             </div>
         </div>
 
-        <!-- Navigation -->
+        <!-- Navigation UI -->
         <div class="controls">
-            <button class="btn" onclick="prevSlide()">❮</button>
-            <div class="flex gap-1 items-center">
-                <span id="slide-indicator" class="text-xs font-bold text-gray-500">1 / 7</span>
-            </div>
-            <button class="btn" onclick="nextSlide()">❯</button>
+            <button class="nav-btn" onclick="prevSlide()">❮</button>
+            <span id="slide-number" class="text-xs font-bold text-gray-500 tracking-tighter">01 / 07</span>
+            <button class="nav-btn" onclick="nextSlide()">❯</button>
         </div>
     </div>
 
@@ -303,62 +311,49 @@
         const totalSlides = 7;
 
         function updateSlide() {
-            // Remove active from all
+            // Reset animations and classes
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
             
-            // Add active to current
-            const slide = document.getElementById(`slide-${currentSlide}`);
-            slide.classList.add('active');
+            // Set current active
+            const activeSlide = document.getElementById(`slide-${currentSlide}`);
+            activeSlide.classList.add('active');
 
-            // Update indicator
-            document.getElementById('slide-indicator').innerText = `${currentSlide} / ${totalSlides}`;
+            // Update bottom counter
+            document.getElementById('slide-number').innerText = 
+                `${String(currentSlide).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
         }
 
         function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateSlide();
-            } else {
-                currentSlide = 1; // Loop back
-                updateSlide();
-            }
+            currentSlide = (currentSlide % totalSlides) + 1;
+            updateSlide();
         }
 
         function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateSlide();
-            }
+            currentSlide = currentSlide > 1 ? currentSlide - 1 : totalSlides;
+            updateSlide();
         }
 
-        // Auto-play feature
-        let timer = setInterval(nextSlide, 5000);
+        // Auto-scroll every 4.5 seconds for Shorts feel
+        let autoPlay = setInterval(nextSlide, 4500);
 
-        // Reset timer on manual click
-        document.querySelector('.controls').addEventListener('click', () => {
-            clearInterval(timer);
-            timer = setInterval(nextSlide, 8000);
-        });
-
-        // Touch swipe support
-        let touchstartX = 0;
-        let touchendX = 0;
-        
-        const slider = document.querySelector('.phone-canvas');
-
-        slider.addEventListener('touchstart', e => {
-            touchstartX = e.changedTouches[0].screenX;
-        });
-
-        slider.addEventListener('touchend', e => {
-            touchendX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
-
-        function handleSwipe() {
-            if (touchendX < touchstartX - 50) nextSlide();
-            if (touchendX > touchstartX + 50) prevSlide();
+        // Reset autoPlay on manual interaction
+        function resetTimer() {
+            clearInterval(autoPlay);
+            autoPlay = setInterval(nextSlide, 7000);
         }
+
+        document.querySelector('.controls').addEventListener('click', resetTimer);
+
+        // Mobile Swipe Gestures
+        let startX = 0;
+        const canvas = document.querySelector('.phone-canvas');
+
+        canvas.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+        canvas.addEventListener('touchend', e => {
+            let endX = e.changedTouches[0].clientX;
+            if (startX - endX > 50) { nextSlide(); resetTimer(); }
+            if (endX - startX > 50) { prevSlide(); resetTimer(); }
+        });
     </script>
 </body>
 </html>
