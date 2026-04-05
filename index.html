@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5 Small House Mistakes - Civilian Himmu</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
             --red-mistake: #ef4444;
@@ -46,28 +46,25 @@
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: translateX(100%);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(1.1);
         }
 
         .slide.active {
             opacity: 1;
             pointer-events: auto;
-            transform: translateX(0);
+            transform: scale(1);
         }
 
         .slide.prev {
-            transform: translateX(-100%);
+            transform: scale(0.9);
+            opacity: 0;
         }
 
         h1, h2 {
             font-family: 'Montserrat', sans-serif;
             text-transform: uppercase;
-            line-height: 1.1;
         }
-
-        .highlight-red { color: var(--red-mistake); }
-        .highlight-yellow { color: var(--yellow-highlight); }
 
         /* Progress Bar */
         .progress-container {
@@ -81,16 +78,16 @@
         }
 
         .progress-bar {
-            height: 3px;
-            background: rgba(255,255,255,0.15);
+            height: 4px;
+            background: rgba(255,255,255,0.1);
             flex: 1;
-            border-radius: 1px;
+            border-radius: 2px;
             overflow: hidden;
         }
 
         .progress-fill {
             height: 100%;
-            background: var(--yellow-highlight);
+            background: white;
             width: 0%;
         }
 
@@ -103,48 +100,42 @@
             to { width: 100%; }
         }
 
-        /* Mistake Card */
+        /* Design Elements */
         .mistake-card {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.05);
             border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            border-radius: 24px;
             padding: 1.5rem;
-            margin-top: 1rem;
-            position: relative;
+            margin-top: 1.5rem;
         }
 
         .visual-box {
             background: #1a1a1a;
-            border-radius: 12px;
-            height: 180px;
+            border-radius: 16px;
+            height: 200px;
             margin-bottom: 1rem;
-            border: 1px dashed #333;
+            border: 1px dashed #444;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
         }
 
-        /* Navigation Taps */
         .nav-overlay {
             position: absolute;
             inset: 0;
             display: flex;
             z-index: 50;
         }
-        .nav-left, .nav-right {
-            flex: 1;
-            cursor: pointer;
-        }
+        .nav-left, .nav-right { flex: 1; cursor: pointer; }
 
         .badge-mistake {
             background: var(--red-mistake);
             color: white;
-            padding: 2px 10px;
-            border-radius: 4px;
-            font-size: 0.7rem;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
             font-weight: 800;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             display: inline-block;
         }
     </style>
@@ -159,110 +150,125 @@
             <div class="nav-right" onclick="nextSlide()"></div>
         </div>
 
-        <!-- Slide 1: Hook -->
-        <div class="slide active" id="slide-0" style="transform: translateX(0); opacity: 1;">
-            <div class="absolute inset-0 opacity-10 grayscale" style="background-image: url('https://www.transparenttextures.com/patterns/blueprint.png');"></div>
-            <h1 class="text-4xl font-black mb-2">Small House <br>Plan ki</h1>
-            <h2 class="text-6xl font-black highlight-red">5 BIGGEST</h2>
-            <h2 class="text-5xl font-black bg-white text-black px-2 mt-2">MISTAKES 😳</h2>
-            <p class="mt-8 text-xl text-yellow-500 font-bold">Space waste ho jayega!</p>
-            <div class="mt-12 flex justify-center">
-                <div class="animate-bounce bg-white/10 p-4 rounded-full">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+        <!-- Slide 1: Hook (Improved Layout) -->
+        <div class="slide active" id="slide-0">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#444 1px, transparent 1px); background-size: 20px 20px;"></div>
+            
+            <div class="relative z-10 text-center">
+                <span class="text-yellow-500 font-bold tracking-[0.3em] text-xs uppercase mb-4 block">House Planning Tips</span>
+                
+                <h1 class="text-4xl font-extrabold leading-tight text-white">Small House <br>Plan ki</h1>
+                
+                <div class="my-6 relative inline-block">
+                    <div class="absolute -inset-2 bg-red-600 blur-lg opacity-50 animate-pulse"></div>
+                    <h2 class="relative text-7xl font-black text-white italic">5 BIGGEST</h2>
+                </div>
+                
+                <h2 class="text-5xl font-black bg-white text-black py-2 px-4 transform -rotate-2 inline-block shadow-2xl">MISTAKES 😳</h2>
+                
+                <p class="mt-10 text-xl font-medium text-gray-400">Pura <span class="text-red-500 font-bold">Space Waste</span> ho jayega!</p>
+                
+                <div class="mt-12 flex flex-col items-center gap-2 text-gray-500">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="animate-bounce">
+                        <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+                    </svg>
+                    <span class="text-[10px] uppercase tracking-widest font-bold">Swipe or Tap to start</span>
                 </div>
             </div>
         </div>
 
         <!-- Slide 2: Mistake 1 -->
         <div class="slide" id="slide-1">
-            <span class="badge-mistake">MISTAKE 01</span>
-            <h2 class="text-3xl font-black mb-4">BIG USELESS LOBBY</h2>
+            <span class="badge-mistake tracking-widest">MISTAKE 01</span>
+            <h2 class="text-3xl font-black mb-4 leading-none">BIG USELESS <br><span class="text-red-500">LOBBY</span></h2>
             <div class="mistake-card">
                 <div class="visual-box relative">
-                    <div class="w-2/3 h-2/3 bg-red-500/20 border-2 border-red-500 flex items-center justify-center font-bold text-red-500">LOBBY</div>
-                    <div class="absolute top-2 left-2 text-[10px] text-gray-500">ROOM</div>
-                    <div class="absolute bottom-2 right-2 text-[10px] text-gray-500">ROOM</div>
+                    <div class="w-1/2 h-1/2 bg-red-500/20 border-2 border-red-500 flex items-center justify-center font-bold text-red-500 text-xs">WASTE LOBBY</div>
+                    <div class="absolute top-2 left-2 p-2 border border-gray-700 text-[8px] text-gray-500">ROOM</div>
+                    <div class="absolute bottom-2 right-2 p-2 border border-gray-700 text-[8px] text-gray-500">ROOM</div>
                 </div>
-                <p class="text-sm text-gray-400">Chote ghar mein bada lobby rooms ka space kha jata hai. ❌</p>
+                <p class="text-sm text-gray-300 leading-relaxed">Small house mein bada lobby rooms ka space kha jata hai. Layout tight ho jayega! ❌</p>
             </div>
         </div>
 
         <!-- Slide 3: Mistake 2 -->
         <div class="slide" id="slide-2">
-            <span class="badge-mistake">MISTAKE 02</span>
-            <h2 class="text-3xl font-black mb-4">CENTER STAIRCASE</h2>
+            <span class="badge-mistake tracking-widest">MISTAKE 02</span>
+            <h2 class="text-3xl font-black mb-4 leading-none">CENTER <br><span class="text-red-500">STAIRCASE</span></h2>
             <div class="mistake-card">
                 <div class="visual-box">
-                    <div class="grid grid-cols-3 gap-1 w-full p-4">
-                        <div class="bg-gray-800 h-10 rounded"></div>
-                        <div class="bg-red-500 h-10 rounded flex flex-col p-1 gap-1">
-                            <div class="h-1 bg-white/50 w-full"></div>
-                            <div class="h-1 bg-white/50 w-full"></div>
+                    <div class="grid grid-cols-3 gap-2 w-full px-6">
+                        <div class="bg-gray-800 h-12 rounded-lg"></div>
+                        <div class="bg-red-600 h-12 rounded-lg flex flex-col p-1 gap-1 border-2 border-white/20">
+                            <div class="h-1 bg-white/40 w-full rounded"></div>
+                            <div class="h-1 bg-white/40 w-full rounded"></div>
+                            <div class="h-1 bg-white/40 w-full rounded"></div>
                         </div>
-                        <div class="bg-gray-800 h-10 rounded"></div>
+                        <div class="bg-gray-800 h-12 rounded-lg"></div>
                     </div>
                 </div>
-                <p class="text-sm text-gray-400">Seedhiyan bich mein hone se rooms ka size chota aur awkward ho jata hai.</p>
+                <p class="text-sm text-gray-300 leading-relaxed">Seedhiyan bich mein hone se corridor space badh jata hai aur rooms chote ho jate hain.</p>
             </div>
         </div>
 
         <!-- Slide 4: Mistake 3 -->
         <div class="slide" id="slide-3">
-            <span class="badge-mistake">MISTAKE 03</span>
-            <h2 class="text-3xl font-black mb-4">EXTRA PASSAGE</h2>
+            <span class="badge-mistake tracking-widest">MISTAKE 03</span>
+            <h2 class="text-3xl font-black mb-4 leading-none">EXTRA <br><span class="text-red-500">PASSAGE</span></h2>
             <div class="mistake-card">
                 <div class="visual-box">
-                    <div class="w-full h-4 bg-red-600/40 relative mx-4">
-                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 text-[10px] text-red-500 font-bold">LONG CORRIDOR = WASTE</div>
+                    <div class="w-full h-6 bg-red-600/30 relative mx-8 border-y border-red-500/50 flex items-center justify-center">
+                        <span class="text-[8px] font-bold text-red-400">LONG PASSAGE = ZERO UTILITY</span>
                     </div>
                 </div>
-                <p class="text-sm text-gray-400">Passage jitna lamba hoga, carpet area utna hi kam milega.</p>
+                <p class="text-sm text-gray-300 leading-relaxed">Passage jitna lamba hoga, ghar utna hi chota feel hoga. Try to minimize walking area.</p>
             </div>
         </div>
 
         <!-- Slide 5: Mistake 4 -->
         <div class="slide" id="slide-4">
-            <span class="badge-mistake">MISTAKE 04</span>
-            <h2 class="text-3xl font-black mb-4">WRONG DOOR PLACEMENT</h2>
+            <span class="badge-mistake tracking-widest">MISTAKE 04</span>
+            <h2 class="text-3xl font-black mb-4 leading-none">DOOR <br><span class="text-red-500">CLASHING</span></h2>
             <div class="mistake-card">
                 <div class="visual-box">
                     <svg width="100" height="100" viewBox="0 0 100 100" class="text-red-500">
-                        <path d="M20,50 A30,30 0 0,1 50,20" fill="none" stroke="currentColor" stroke-width="2" />
-                        <path d="M80,50 A30,30 0 0,0 50,20" fill="none" stroke="currentColor" stroke-width="2" />
-                        <circle cx="50" cy="20" r="5" fill="currentColor" class="animate-ping" />
+                        <path d="M20,50 Q20,20 50,20" fill="none" stroke="currentColor" stroke-width="3" />
+                        <path d="M80,50 Q80,20 50,20" fill="none" stroke="currentColor" stroke-width="3" />
+                        <circle cx="50" cy="20" r="6" fill="currentColor" class="animate-ping" />
+                        <text x="50" y="45" fill="currentColor" font-size="10" text-anchor="middle" font-weight="bold">BOOM!</text>
                     </svg>
                 </div>
-                <p class="text-sm text-center text-gray-400 font-bold">DOOR CLASH PROBLEM! 🚪💥</p>
+                <p class="text-sm text-gray-300 leading-relaxed">Galt door placement se darwaze aapas mein takrate hain. Smooth movement block hota hai.</p>
             </div>
         </div>
 
         <!-- Slide 6: Mistake 5 -->
         <div class="slide" id="slide-5">
-            <span class="badge-mistake">MISTAKE 05</span>
-            <h2 class="text-3xl font-black mb-4">WRONG ROOM SIZES</h2>
+            <span class="badge-mistake tracking-widest">MISTAKE 05</span>
+            <h2 class="text-3xl font-black mb-4 leading-none">WRONG ROOM <br><span class="text-red-500">SIZES</span></h2>
             <div class="mistake-card">
-                <div class="flex items-end gap-2 h-32 mb-4">
-                    <div class="w-1/2 h-full bg-red-500/20 border border-red-500 rounded flex items-center justify-center text-[10px]">TOO BIG</div>
-                    <div class="w-1/4 h-1/2 bg-red-500/20 border border-red-500 rounded flex items-center justify-center text-[10px]">TINY</div>
+                <div class="flex items-end gap-3 h-32 mb-4">
+                    <div class="w-3/5 h-full bg-red-600/10 border-2 border-red-500/50 rounded-xl flex items-center justify-center text-[10px] font-bold">TOO BIG HALL</div>
+                    <div class="w-1/5 h-1/2 bg-red-600/10 border-2 border-red-500/50 rounded-xl flex items-center justify-center text-[8px] text-center">TINY BDRM</div>
                 </div>
-                <p class="text-sm text-gray-400">Unbalanced sizes se ghar comfortable nahi lagta.</p>
+                <p class="text-sm text-gray-300 leading-relaxed">Balance zaroori hai! Ek room bahut bada aur dusra bahut chota plan kharab kar deta hai.</p>
             </div>
         </div>
 
         <!-- Slide 7: Ending CTA -->
         <div class="slide" id="slide-6">
             <div class="text-center">
-                <h2 class="text-4xl font-black mb-6 italic underline decoration-yellow-500">SMART <br>PLANNING</h2>
-                <p class="text-gray-400 mb-12">Small house mein planning hi sab kuch hai.</p>
+                <div class="w-16 h-1 bg-yellow-500 mx-auto mb-6"></div>
+                <h2 class="text-4xl font-black mb-4">SMART <br>PLANNING</h2>
+                <p class="text-gray-400 mb-10 text-sm">Har inch ka sahi use karein, <br>Civilian Himmu ke saath!</p>
                 
-                <div class="bg-gradient-to-br from-yellow-500 to-orange-600 p-[2px] rounded-3xl">
-                    <div class="bg-black p-8 rounded-3xl">
-                        <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-2">Practical Expert</p>
-                        <h3 class="text-3xl font-black text-white">Civilian Himmu</h3>
-                    </div>
+                <div class="bg-white/5 border border-white/10 p-8 rounded-[32px] mb-8">
+                    <p class="text-[10px] uppercase tracking-[0.4em] text-yellow-500 mb-2 font-bold">Channel</p>
+                    <h3 class="text-3xl font-black text-white">Civilian Himmu</h3>
                 </div>
 
-                <button class="mt-8 px-8 py-3 bg-white text-black font-black rounded-full uppercase tracking-widest text-xs">Follow Now</button>
+                <button class="w-full py-4 bg-white text-black font-black rounded-2xl uppercase tracking-widest text-xs shadow-[0_10px_30px_rgba(255,255,255,0.2)]">Follow For More Tips</button>
             </div>
         </div>
     </div>
@@ -270,7 +276,7 @@
     <script>
         let currentSlide = 0;
         const totalSlides = 7;
-        const slideDuration = 4000; // 4 seconds per slide (fast paced)
+        const slideDuration = 4500;
         let slideTimer;
 
         const progressContainer = document.getElementById('progress-dots');
